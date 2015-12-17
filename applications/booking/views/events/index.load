@@ -1,0 +1,68 @@
+{{person_id = request.vars.person}}
+<div id="event_event_types">
+    
+    <div id="event_types_legend">
+        <ul>
+            <li class="title"><strong>Event Types: </strong></li>
+            <li class="clickable" style="border:1px solid black;">all</li>
+            {{for type in types:}}
+            <li class="clickable" style="background-color:{{=type.color}}; color:white">{{=type.name}}</li>
+            {{pass}}
+        </ul>
+    </div>
+    
+    <div id="event_types_update_btn">
+    {{if not person_id and can('create', 'event_types'):}}
+        {{=(button('Update Event Types', f='index', c='event_types'))}}
+    {{pass}}
+    </div>
+    
+</div>
+
+<div id="events" style="clear:left">
+    <div id="calendar_area">
+        <div id="calendar"></div>
+        <div id="events_legend">
+            Registered: <strong style="height:5px; grey;background-color:white;color:#008A00;">✓</strong>
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            Selected: <span style="font-size:10px; border:2px solid green;">&nbsp;&nbsp;&nbsp;&nbsp;</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            Past: <span style="color:white;background-color:grey">&nbsp;w&nbsp;</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            Full(clients only): <span style="color:black;background-color:grey">&nbsp;b&nbsp;</span>
+        </div>
+    </div>
+    
+    <div id="single_event">
+        {{if can('create', 'events') and not bool(person_id):}}
+        <div id="single_event_header">
+            <h3>
+            <span class="button" style="cursor: pointer;" onclick="javascript:displayEvents(true, false);">Current Event</span>
+            <span class="button" style="cursor: pointer;" onclick="javascript:displayEvents(false, true);">New Event</span>
+            </h3>            
+        </div>
+        {{pass}}
+        <div id="current_event_content">Select an Event</div>
+        <div id="new_event_content"/>
+    </div>
+    
+    <div style="clear: both;"></div>
+</div>
+
+<script type='text/javascript'>
+    var update_url = '{{=URL(f="update.load", vars=event_vars())}}';
+    {{vars = dict(person=person_id) if person_id else None}}
+    var list_json_url = '{{=URL(f="list.json", vars=vars)}}';
+        
+    $(document).ready(function() {
+        
+        {{if not bool(person_id):}}
+            var create_url = '{{=URL(f="create.load", vars=event_vars())}}';
+            $('#new_event_content').hide();
+            loadCreateForm(create_url);
+        {{pass}}
+        
+        bind_event_type_events();
+        initCalendar(list_json_url);
+    });
+</script>

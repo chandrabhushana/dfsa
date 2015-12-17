@@ -1,0 +1,140 @@
+{{=required_message()}}
+{{=form.custom.begin}}
+
+<table class="form-table">
+    <thead>
+        <tr>
+            <th class="form-label-col"></th>
+            <th class="form-input-col"></th>
+            <th class="form-label-col"></th>
+            <th class="form-input-col"></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr class="shform">
+            <td colspan="100%">Organisation Details<br/><hr/></td>
+        </tr>
+        
+        <tr>
+            <td><span class="m">*</span> {{=form.custom.label.name}}:</td>
+            <td>{{=form.custom.widget.name}}</td>
+           
+           
+        </tr>
+        <tr>
+            <td>{{=form.custom.label.desc}}:</td>
+            <td>{{=form.custom.widget.desc}}</td>
+        </tr>
+    <tr>
+            <td><span class="m">*</span> {{=form.custom.label.street_addr}}:</td>
+            <td>{{=form.custom.widget.street_addr}}</td>
+            <td><span class="m">*</span> {{=form.custom.label.suburb_addr}}:</td>
+            <td>{{=form.custom.widget.suburb_addr}}</td>
+        </tr>
+        <tr>
+            <td>{{=form.custom.label.city_addr}}:</td>
+            <td>{{=form.custom.widget.city_addr}}</td>
+            <td>{{=form.custom.label.postcode_addr}}:</td>
+            <td>{{=form.custom.widget.postcode_addr}}</td>
+        </tr>
+                
+        <tr class="shform">
+            <td colspan="100%">Contact Details<br/><hr/></td>
+        </tr>
+        
+        <tr>
+            <td>Contact Name:</td>
+            <td>{{=form.custom.widget.contact_name}}</td>
+            <td>Contact Number:</td>
+            <td>{{=form.custom.widget.contact_phone}}</td>
+        </tr>
+        <tr>
+            <td>Contact Email:</td>
+            <td>{{=form.custom.widget.contact_email}}</td>
+            <td>Alternate Contact Number:</td>
+            <td>{{=form.custom.widget.contact_mobile}}</td>
+        </tr>
+        <tr>
+            <td>Comments:</td>
+            <td>{{=form.custom.widget.comments}}</td>
+        </tr>
+        <tr class="shform">
+            <td colspan="100%">Organisation Type<br/><hr/></td>
+        </tr>
+        <tr>
+            <td><span class="m">*</span> {{=form.custom.label.organisations_types}}:</td>
+            <td> <div id="organisation_type">{{=form.custom.widget.organisations_types}}</div></td>
+        </tr>
+  </tbody>
+</table>
+<tr></tr>
+<div id="referral_organisation" hidden="hidden">
+<table class="form-table">
+    <tbody>    
+        <tr>
+            <td>{{=form.custom.label.is_disability_ref}}</td>
+            <td>{{=form.custom.widget.is_disability_ref}}</td>
+         </tr>
+         <tr>
+             <td>{{=form.custom.label.is_job_placement_service}}</td>
+             <td>{{=form.custom.widget.is_job_placement_service}}</td>
+         </tr>
+         <tr>
+             <td>{{=form.custom.label.is_work_income}}</td>
+             <td>{{=form.custom.widget.is_work_income}}</td>
+         </tr>
+         <tr>
+            <td>{{=form.custom.label.is_education_ref}}</td>
+            <td>{{=form.custom.widget.is_education_ref}}</td>
+        </tr>
+        <tr>
+            <td>{{=form.custom.label.is_dept_corrective}}</td>
+            <td>{{=form.custom.widget.is_dept_corrective}}</td>
+        </tr>
+        <tr>
+            <td>{{=form.custom.label.other_ref}}</td>
+            <td>{{=form.custom.widget.other_ref}}</td>
+        </tr>
+ </tbody>
+</table>
+</div>      
+<div id="sponsor" hidden="hidden">
+<table class="form-table">
+    <tbody>                 
+        <tr>
+            <td>{{=form.custom.label.is_financial_sponsor}}</td>
+            <td>{{=form.custom.widget.is_financial_sponsor}}</td>
+        </tr>
+        <tr>
+            <td>{{=form.custom.label.is_in_kind_doanations}}</td>
+            <td>{{=form.custom.widget.is_in_kind_doanations}}</td>
+        </tr>
+        <tr>
+            <td>{{=form.custom.label.is_volunteer_sponsor}}</td>
+            <td>{{=form.custom.widget.is_volunteer_sponsor}}</td>
+        </tr>
+        <tr>
+            <td>{{=form.custom.label.other_sponsor}}</td>
+            <td>{{=form.custom.widget.other_sponsor}}</td>
+        </tr>
+</tbody>
+</table>
+</div>                  
+<table class="form-table">
+    <tbody>
+        <tr class="submitrow">
+            <td>{{=form.custom.submit}}</td>
+            <td><input style="margin-left:0px" id="cancel" class="submit" type="reset" onclick="window.history.back()" value="Cancel"></td>
+        </tr>
+    </tbody>
+</table>
+  
+
+{{=form.custom.end}}
+<script language="javascript">
+    $(document).ready(function(){
+        onOrganisationFormPageReady();
+       // onActivitiesPageReady();
+        
+    });
+</script>

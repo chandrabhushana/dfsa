@@ -1,0 +1,14 @@
+{{extend 'layout.html'}}
+{{=stylesheet_rel('colorPicker.css')}}
+{{=javascript_rel('jquery.colorPicker.js')}}
+
+{{if can('index', entity):}}
+<div id="breadcrumbs">
+    {{=link(text='Events Types List', f='index')}} > Update Event Type
+</div>
+{{pass}}
+
+
+<h2>Update Event Type</h2>
+
+{{include request.controller + '/form.load'}}

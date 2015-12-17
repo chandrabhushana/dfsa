@@ -1,0 +1,21 @@
+{{extend 'layout.html'}}
+
+<h2>My Profile</h2>
+
+{{if is_client:}}
+    {{person=auth.user}}
+    {{include 'clients/form.load'}}
+{{elif is_agency:}}
+    {{include 'agencies/form.load'}}
+{{elif is_employee:}}
+    {{include 'employees/form.load'}}
+{{elif is_volunteer:}}
+    {{person=auth.user}}
+    {{include 'volunteers/form.load'}}
+{{elif is_admin:}}
+	{{include 'admin/form.load'}}
+{{pass}}
+
+<div id="change_password">
+    {{=button('Change My Password', c='default',f='user',args='change_password')}}
+</div>

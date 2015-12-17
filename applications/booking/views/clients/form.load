@@ -1,0 +1,217 @@
+{{=required_message()}}
+{{function=request.function}}
+{{=form.custom.begin}}
+
+<table class="form-table">
+    <thead>
+        <tr>
+            <th class="form-label-col"></th>
+            <th class="form-input-col"></th>
+            <th class="form-label-col"></th>
+            <th class="form-input-col"></th>            
+        </tr>
+    </thead>
+    <tbody>
+        <tr class="shform">
+            <td colspan="100%">Contact Details<br/><hr/></td>
+        </tr>
+        <tr>
+            <td>{{=form.custom.label.title}}</td>
+            <td>{{=form.custom.widget.title}}</td>
+            {{if function!='create':}}
+            <td>Created on:</td>
+            <td>{{=person.created_on.date().strftime('%d-%m-%Y')}}</td>
+            {{pass}}
+        </tr>
+
+
+        <tr>
+            <td><span class="m">*</span> First Name:</td>
+            <td>{{=form.custom.widget.first_name}}</td>
+            <td><span class="m">*</span> Last Name:</td>
+            <td>{{=form.custom.widget.last_name}}</td>
+        </tr>
+        <tr>
+                {{if http_host == AFFILIATE_SYD:}}
+                <td><span class="m">*</span> Mobile: </td>
+               {{else:}}
+                <td><span class="m">*</span> {{=form.custom.label.mobile}}: </td>
+                {{pass}}
+
+            <td>{{=form.custom.widget.mobile}}</td>
+            <td>{{=form.custom.label.email}}:</td>
+            <td>{{=form.custom.widget.email}}</td>
+        </tr>
+        <tr>
+            <td>{{=form.custom.label.second_contact_number}}:</td>
+            <td>{{=form.custom.widget.second_contact_number}}</td>
+            <div class=date>
+            <!--Rel-3 reqR3_10  making date of birth mandatory in client record on 23rd Jan by Subhasmita-->
+            <td><span class="m">*</span> {{=form.custom.label.date_of_birth}}:</td>
+            <td>{{=form.custom.widget.date_of_birth}}</td>
+            </div>
+
+        </tr>
+
+        <tr>
+            <td>{{=form.custom.label.street_addr}}:</td>
+            <td>{{=form.custom.widget.street_addr}}</td>
+            <td><span class="m">*</span> {{=form.custom.label.suburb_addr}}:</td>
+            <td>{{=form.custom.widget.suburb_addr}}</td>
+        </tr>
+        <tr>
+            <td>{{=form.custom.label.city_addr}}:</td>
+            <td>{{=form.custom.widget.city_addr}}</td>
+            <td>{{=form.custom.label.postcode_addr}}:</td>
+            <td>{{=form.custom.widget.postcode_addr}}</td>
+        </tr>
+        
+        <tr class="shform">
+            <td colspan="100%">Other Details<br/><hr/></td>
+        </tr>
+        
+        
+        <tr>
+            <td><span class="m">*</span> {{=form.custom.label.gender}}:</td>
+            <td>{{=form.custom.widget.gender}}</td>
+            <td>{{=form.custom.label.ethnicity}}:</td>
+            <td>{{=form.custom.widget.ethnicity}}</td>
+        </tr>
+        <tr >
+            <!-- Rel-3 reqR3_5 Removed mandatory aspect from Shoe size on 22nd Jan by Subhasmita-->
+            <td><span class="m"></span>{{=form.custom.label.shoe_size}}:</td>
+            <td> <div id="shoe">{{=form.custom.widget.shoe_size}}</div></td>
+            <!-- Rel-3 reqR3_5 Removed mandatory aspect from Clothing size on 22nd Jan by Subhasmita-->
+            <td><span class="m"></span>{{=form.custom.label.clothing_size}}:</td>
+            <td>{{=form.custom.widget.clothing_size}}</td>
+        </tr>
+        <tr>
+            <td>{{=form.custom.label.age_range}}:</td>
+            <td>{{=form.custom.widget.age_range}}</td>
+            <td>{{=form.custom.label.length_of_time_unemployed}}:</td>
+            <td>{{=form.custom.widget.length_of_time_unemployed}}</td>
+        </tr>
+       <tr>
+            <td><span class="m">*</span> TTW Paid:</td>
+            <td>{{=form.custom.widget.ttw_paid}}</td>
+            <td>{{=form.custom.label.single_parent}}:</td>
+            <td>{{=form.custom.widget.single_parent}}</td>
+        </tr>
+        <tr>
+            <td>{{=form.custom.label.job_type}}:</td>
+            <td>{{=form.custom.widget.job_type}}</td>
+            <td>{{=form.custom.label.educational_level}}:</td>
+            <td>{{=form.custom.widget.educational_level}}</td>
+        </tr>
+        <tr>{{orgs_widget = str(form.custom.widget.organisation)}}
+            <td>{{=required_indicator('select' in orgs_widget)}}Referral Organisation:</td>
+            <td>{{=XML(orgs_widget)}}</td>
+        </tr>
+        <!--Rel3 R3_12 added by Subhasmita on Jan29-->
+        {{if is_agency:}}              
+        <tr>        
+            <td><span class="m">*</span>  Referral Contact Name:</td>
+            <td>{{=auth.user.first_name}}</td>
+            <td><span class="m">*</span> Referral Contact Number:</td>
+            <td>{{=auth.user.mobile}}</td>
+        </tr>
+        {{else:}} 
+        <tr>
+            <td><span class="m">*</span>  Referral Contact Name:</td>
+            <td>{{=form.custom.widget.contact_name}}</td>
+            <td><span class="m">*</span> Referral Contact Number:</td>
+            <td>{{=form.custom.widget.contact_number}}</td>
+        </tr>
+        {{pass}}
+        {{if is_agency:}}   
+        <tr>
+            <td>{{=form.custom.label.referral_contact_email}}:</td>
+            <td>{{=auth.user.email}}</td>
+        </tr> 
+        {{else:}}   
+        <tr>
+            <td>{{=form.custom.label.referral_contact_email}}:</td>
+            <td>{{=form.custom.widget.referral_contact_email}}</td>
+        </tr>
+        {{pass}}
+      
+        <tr>
+            <td>{{=form.custom.label.pref_permission_to_photo}}:</td>
+            <td>{{=form.custom.widget.pref_permission_to_photo}}</td>
+        </tr>
+        <tr>
+            <td>{{=form.custom.label.pref_permission_to_follow_up}}:</td>
+            <td>{{=form.custom.widget.pref_permission_to_follow_up}}</td>
+            <td>{{=form.custom.label.pref_permission_to_invite_events}}:</td>
+            <td>{{=form.custom.widget.pref_permission_to_invite_events}}</td>
+        </tr>
+        <tr>
+            <td>{{=form.custom.label.comments}}:</td>
+            <td>{{=form.custom.widget.comments}}</td>
+        </tr>
+        <tr class="shform">
+            <td colspan="100%">Resource Centre<br/><hr/></td>
+        </tr>
+        <tr>
+            <td>{{=form.custom.label.pref_jobsearch}}:</td>
+            <td>{{=form.custom.widget.pref_jobsearch}}</td>
+            <td>{{=form.custom.label.pref_presentation}}:</td>
+            <td>{{=form.custom.widget.pref_presentation}}</td>
+        </tr>
+        <tr>
+            <td>{{=form.custom.label.pref_interview}}:</td>
+            <td>{{=form.custom.widget.pref_interview}}</td>
+            <td>{{=form.custom.label.pref_resume}}:</td>
+            <td>{{=form.custom.widget.pref_resume}}</td>
+        </tr>
+        <tr>
+            <td>{{=form.custom.label.pref_computer}}:</td>
+            <td>{{=form.custom.widget.pref_computer}}</td>
+            <td>{{=form.custom.label.pref_mentoring}}:</td>
+            <td>{{=form.custom.widget.pref_mentoring}}</td>
+        </tr>
+        <tr>
+            <td>{{=form.custom.label.pref_workshops}}:</td>
+            <td>{{=form.custom.widget.pref_workshops}}</td>  
+            <!--Rel-3 reqR3_8  Client Add tick box in Client Record for Job Obtained by Mukesh-->
+    
+            <td>{{=form.custom.label.job_obtained}}:</td>
+            <td>{{=form.custom.widget.job_obtained}}</td>     
+        </tr>
+       <tr>
+            <td>{{=form.custom.label.pref_lifeskills}}:</td>
+            <td>{{=form.custom.widget.pref_lifeskills}}</td>
+            <td>{{=form.custom.label.pref_socialmedia}}:</td>
+            <td>{{=form.custom.widget.pref_socialmedia}}</td>
+            
+        </tr>
+        <tr>
+            <td>{{=form.custom.label.pref_other}}:</td>
+            <td>{{=form.custom.widget.pref_other}}</td>
+        </tr>
+      
+        
+        
+        <tr class="submitrow">
+            <td>{{=form.custom.submit}}</td>
+            <td><input style="margin-left:0px" id="cancel" class="submit" type="reset" onclick="window.history.back()" value="Cancel"></td>
+        </tr>
+        
+        
+    </tbody>
+</table>
+{{=form.custom.end}}
+
+<script language="javascript">
+    //declare vars here so they are visible in the onClientsFormPageReady function. 
+    //Don't set them till dom is ready
+    var full_clothing_size_options;
+    var full_shoe_size_options;
+    $(document).ready(function(){
+        var shoe_size = $('#auth_user_shoe_size');
+        var clothing_size = $('#auth_user_clothing_size');
+        full_clothing_size_options = clothing_size.html();
+        full_shoe_size_options = shoe_size.html();
+        onClientsFormPageReady();
+    });
+</script>

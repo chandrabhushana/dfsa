@@ -1,0 +1,26 @@
+{{extend "layout.html"}}
+
+{{person_type = person.type}}
+
+{{if can('index', entity):}}
+{{if action == 'index':}}
+<!--do nothing -->
+{{else:}}
+<div id="breadcrumbs">
+    {{=link(text='Find ' + person_type, f='index')}} >
+    View {{=person_type}}
+</div>
+{{pass}}
+{{pass}}
+{{include 'people/infodisplay.load'}}
+{{if person.deactivated==False and not person.type==PERSON_TYPE_ADMIN:}}
+    {{if not (entity=='agencies'):}}    
+        {{if person.id==auth.user_id or can('manage-others', 'registrations'):}}
+            <div id="person_events">
+                {{=LOAD(c='events',f='index.load',vars=dict(person=person.id,person_type=person.type),ajax=True)}}
+            </div>    
+        {{pass}}
+        
+        {{include 'activities/list.load'}}
+    {{pass}}
+{{pass}}

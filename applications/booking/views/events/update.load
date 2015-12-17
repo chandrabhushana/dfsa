@@ -1,0 +1,16 @@
+{{if form==None:}}
+    <span>The selected event id does not exist</span>
+{{else:}}
+    
+    {{include request.controller + '/form.load'}}
+    
+    <div id="reg_in_event">
+        {{=LOAD('registrations','manage.load', ajax=True, vars=dict(event=event_id, slots=slots, person=request.vars.person))}}
+    </div>
+    
+{{pass}}
+
+
+<script>
+current_event_id = {{=event_id}};
+</script>

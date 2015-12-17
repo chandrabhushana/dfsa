@@ -1,0 +1,11 @@
+{{extend 'layout.html'}}
+
+{{report_name = 'Total Organisations'}}
+{{gender_field = False}}
+{{total_message = 'Number of Organisations'}}
+{{total_val = len(result)}}
+{{start_and_end = False}}
+{{start_not_end = False}}
+{{effective_date = True}}
+
+{{include 'reports/reports.load'}}

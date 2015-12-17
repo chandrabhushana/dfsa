@@ -1,0 +1,10 @@
+{{extend 'layout.html'}}
+
+{{report_name = 'Volunteer Hours'}}
+{{gender_field = True}}
+{{total_message = 'Total volunteer hours'}}
+{{total_val = globals().get('time_count')}}
+{{start_and_end = True}}
+{{effective_date = False}}
+
+{{include 'reports/reports.load'}}

@@ -1,0 +1,9 @@
+{{extend 'layout.html'}}
+{{=stylesheet_rel('colorPicker.css')}}
+{{=javascript_rel('jquery.colorPicker.js')}}
+
+
+
+<h2>Create Event Type</h2>
+
+{{include request.controller + '/form.load'}}

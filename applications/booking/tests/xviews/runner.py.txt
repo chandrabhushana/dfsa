@@ -1,0 +1,56 @@
+"""
+Execute with:
+>   python web2py.py -S booking -M -R applications/booking/tests/views/runner.py -A 8001
+
+Some notes on view tests:
+-The view tests do not re-test controller redirect functionality
+-The initial view tests only navigate to all pages to check for errors
+
+
+"""
+
+import unittest
+import sys
+import cStringIO
+import twill
+from gluon import current
+#from twill.commands import debug
+#debug('commands', '0')
+
+twill_output = cStringIO.StringIO()
+twill.set_output(twill_output)
+
+global PERSON_TYPE_ADMIN, PERSON_TYPE_AGENCY, PERSON_TYPE_CLIENT, PERSON_TYPE_EMPLOYEE
+
+ADMIN_EMAIL = 'admin@example.com'
+AGENCY_PARTY_EMAIL = 'agencies@example.com'
+CLIENT_EMAIL = 'client@example.com'
+EMPLOYEE_EMAIL = 'employee@example.com'
+ADMIN_PASS = AGENCY_PARTY_PASS = CLIENT_PASS = EMPLOYEE_PASS = 'password'
+
+#Init
+appname = current.request.application
+approot = 'applications/' + appname
+args = sys.argv
+port = args[1] if len(args)>1 else '8000'
+base_url = 'http://localhost:' + port + '/' + appname
+
+execfile(approot + '/tests/test_utils.py', globals())
+
+def create_accounts():
+    register('AdminFirst', 'AdminLast', ADMIN_EMAIL, ADMIN_PASS, PERSON_TYPE_ADMIN)
+    register('AgencyFirst', 'AgencyLast', AGENCY_PARTY_EMAIL, AGENCY_PARTY_PASS, PERSON_TYPE_AGENCY)
+    register('ClientFirst', 'ClientLast', CLIENT_EMAIL, CLIENT_PASS, PERSON_TYPE_CLIENT)
+    register('EmployeeFirst', 'EmployeeLast', EMPLOYEE_EMAIL, EMPLOYEE_PASS, PERSON_TYPE_EMPLOYEE)
+
+def load_tests():    
+    execfile(approot + '/tests/views/common.py' % globals(), globals())
+    execfile(approot + '/tests/views/clients.py' % globals(), globals())
+
+
+setup_env(testdb=False)
+create_accounts()
+load_tests()
+run_tests()
+
+twill_output.close()

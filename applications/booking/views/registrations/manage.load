@@ -1,0 +1,71 @@
+<div id="registrations" class="infodisplay">
+    
+    <strong>Registration Details :</strong></br>
+    
+    {{#dont bother showing client slots message if we're looking at volunteer or employee}}
+    {{if slots_message and person and person.type==PERSON_TYPE_CLIENT:}}
+        {{=slots_message}}<br/></br>
+    {{pass}}
+    
+    {{if registration_message:}}
+        {{=registration_message}}</br></br>
+    {{pass}}
+    
+    {{if form:}}
+        {{=BEAUTIFY(form, id="selected_client")}}<br/>
+    {{pass}}
+    
+    {{#only show all the registered users if we are on the main events page. not viewing from a person's calendar'}}
+    {{if not person and can('manage-others', entity):}}
+    <div id="registed_list">
+        {{if can('manage-all', entity):}}
+            <strong>Client Registrations:</strong>
+        {{else:}}
+            <strong>Client Registrations for your Organisation:</strong>
+        {{pass}}
+        
+        {{counter=0}}
+        {{for registration in registrations:}}
+            {{person = db.people(registration.person)}}
+            {{if (can('manage-all', entity) or person.organisation==auth.user.organisation) and person.type==PERSON_TYPE_CLIENT:}}
+                <br/>{{=display_name(person)}}
+                {{counter+=1}}
+            {{pass}}
+        {{pass}}
+        {{if counter==0:}}<br/>None{{pass}}
+        <br/>
+        
+        {{if can('index','volunteers'):}}
+            <br/>
+            {{if can('manage-all', entity):}}
+                <strong>Volunteer Registrations:</strong>
+            {{else:}}
+                <strong>Volunteering Registrations for your org:</strong>
+            {{pass}}
+            
+            {{counter=0}}
+            {{for registration in registrations:}}
+                {{person = db.people(registration.person)}}
+                {{if (can('manage-all', entity) or person.organisation==auth.user.organisation) and person.type!=PERSON_TYPE_CLIENT:}}
+                    {{counter+=1}}
+                    <br/>{{=display_name(person)}}
+                {{pass}}
+            {{pass}}
+            {{if counter==0:}}<br/>None{{pass}}
+            <br/><br/>
+        {{pass}}
+    </div>  
+    {{pass}}
+    
+    
+</div>
+
+<script language="javascript">
+	var url='{{=http_host}}';
+	
+    //the current event is saved in a global javascript var
+    updateEventRegistration('{{=is_registered}}','{{=remaining_slots}}','{{=is_full}}');
+    $('#registrations').ready(function(){
+        addRegistrationConfirmation($('#registrations'),url);
+    });
+</script>

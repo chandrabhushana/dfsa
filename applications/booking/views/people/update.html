@@ -1,0 +1,23 @@
+{{extend "layout.html"}}
+
+{{person_type = person.type}}
+
+{{if can('index', entity):}}
+<div id="breadcrumbs">
+    {{=link(text='Find ' + person_type, f='index')}} >
+    {{=link(text='View ' + person_type, f='view', args=str(person.id))}} >
+    Edit {{=person_type}}
+</div>
+{{pass}}
+
+<h2>Edit {{=person_type}}</h2>
+
+{{if person_type==PERSON_TYPE_CLIENT:}}
+    {{include 'clients/form.load'}}
+{{elif person_type==PERSON_TYPE_AGENCY:}}
+    {{include 'agencies/form.load'}}
+{{elif person_type==PERSON_TYPE_EMPLOYEE:}}
+    {{include 'employees/form.load'}}
+{{elif person_type==PERSON_TYPE_VOLUNTEER:}}
+    {{include 'volunteers/form.load'}}
+{{pass}}

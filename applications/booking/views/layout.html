@@ -1,0 +1,111 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<!--
+Design by Free CSS Templates
+http://www.freecsstemplates.org
+Released for free under a Creative Commons Attribution 2.5 License
+
+Name       : Solutions 
+Description: A two-column, fixed-width design for 1024x768 screen resolutions.
+Version    : 1.0
+Released   : 20091102
+
+-->
+<html xmlns="http://www.w3.org/1999/xhtml">
+{{include 'web2py_ajax.html'}}
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache">
+<title>Online Booking</title>
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+{{=stylesheet_rel('default.css')}}
+{{=stylesheet_rel('fullcalendar.css')}}
+{{=stylesheet_rel('print.css', media='print')}}
+
+</head>
+<body onload="history.go(1);">
+<div id="wrapper">
+    <div id="header">
+        <!-- h1>Wear for Success</h1-->
+        <h1>Online Booking System</h1>
+    </div>
+    <div id="subheader">
+        
+        <ul>
+            {{if auth.is_logged_in():}}
+            <li><h4><a href="{{=URL(c='default', f='user', args='logout')}}">Logout</a></h4></li>
+            {{pass}}
+        </ul>
+        
+    </div>
+    
+    <!-- end #header -->
+    
+    <div id="content">
+        {{if auth.is_logged_in():}}
+        <div id="sidebar">
+            
+            <h3>Quick Links</h3>
+            <div id="links" class="gradient">
+                <ul>
+                    <li class="first"><a href="{{=URL(c='default', f='index')}}">Home</a></li>
+                    {{if auth.user.organisation:}}
+                        {{=li_link('My Organisation','organisations','view','view-own','organisations', args=auth.user.organisation)}}
+                    {{pass}}
+                    {{if not (is_volunteer or is_client or is_agency ):}}
+                    {{=li_link('Events','events','index')}}
+                    {{pass}}
+                    {{if not is_volunteer:}}
+                    {{=li_link('Find Client','clients','index')}}
+                    {{pass}}
+                    {{=li_link('Create Client','clients','create')}}
+                    {{=li_link('Find Employee','employees','index')}}
+                    {{=li_link('Create Employee','employees','create')}}
+                    {{=li_link('Find Volunteer','volunteers','index')}}
+                    {{=li_link('Create Volunteer','volunteers','create')}}
+                    {{=li_link('Find Agency User','agencies','index')}}
+                    {{=li_link('Create Agency User','agencies','create')}}
+                    {{=li_link('Organisations','organisations','index')}}
+                    {{=li_link('View Reports','reports','index')}}
+                    <!--<li><a href="{{=URL(c='default', f='assign_roles')}}">Assign Roles</a></li>-->
+                </ul>
+            </div>
+        </div>
+        {{pass}}
+        
+        <div id="main" class="gradient">
+           {{include}}
+        </div>
+        
+    </div>
+    
+    {{if response.flash:}}
+        {{if 'main_error' in response.flash:}}
+        <div class="flash error">{{=response.flash.get('main_error')}}</div>
+        {{elif 'main_notice' in response.flash:}}
+        <div class="flash notice">{{=response.flash.get('main_notice')}}</div>
+        {{pass}}
+    {{pass}}
+    <div></div>
+    <div style="clear: both;">&nbsp;</div>
+    
+    <!-- div id="footer">
+        <p>Copyright (c) 2011 Wear For Success. All rights reserved. Design by <a href="http://www.freecsstemplates.org/">Free CSS Templates</a>.</p>        
+    </div-->
+    <!-- end #footer -->
+</div>
+{{=javascript_rel('fullcalendar.min.js')}}
+{{=javascript_rel('jquery.tablesorter.min.js')}}
+{{=javascript_rel('application.js')}}
+{{=javascript_rel('check_browser_close.js')}}
+<script type='text/javascript'>
+    window.onload = function(){
+        addActivateClassConfirmation($('body'));
+        addDeactivateClassConfirmation($('body'));
+        addFormConfirmation($('body'));
+        addTableSorter();
+    }
+</script>
+
+</body>
+</html>

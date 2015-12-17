@@ -1,0 +1,39 @@
+{{=required_message()}}
+{{function=request.function}}
+{{=form.custom.begin}}
+
+<table class="form-table">
+    <thead>
+        <tr>
+            <th class="form-label-col"></th>
+            <th class="form-input-col"></th>
+            <th class="form-label-col"></th>
+            <th class="form-input-col"></th>            
+        </tr>
+    </thead>
+    <tbody>
+        <tr class="shform">
+            <td colspan="100%">Contact Details<br/><hr/></td>
+        </tr>
+        <tr hidden="hidden" style="display:none;">
+            <td><span class="m">*</span> First Name:</td>
+            <td>{{=form.custom.widget.first_name}}</td>
+            <td><span class="m">*</span> Last Name:</td>
+            <td>{{=form.custom.widget.last_name}}</td>
+        </tr>
+        <tr hidden="hidden" style="display:none;">
+        	<td>{{=form.custom.label.mobile}}:</td>
+        	<td>{{=form.custom.widget.mobile}}</td>
+        </tr>
+        <tr>
+            <td>{{=form.custom.label.email}}:</td>
+            <td>{{=form.custom.widget.email}}</td>
+        </tr>
+        <tr class="submitrow">
+        	<td>{{=form.custom.submit}}</td>
+            <td><input style="margin-left:0px" id="cancel" class="submit" type="reset" onclick="window.history.back()" value="Cancel"></td>
+        </tr>
+         </tbody>
+     
+</table>
+{{=form.custom.end}}

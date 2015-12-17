@@ -1,0 +1,7 @@
+
+#sidebar, #subheader, .button, h3 {
+    display: none;
+}
+.gradient {
+    background: none;
+}

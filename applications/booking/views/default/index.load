@@ -1,0 +1,4 @@
+
+{{if ('error' in response.flash):}}
+<div class="flash error">{{=response.flash['error']}}</div>
+{{pass}}

@@ -1,0 +1,39 @@
+<div id="list">
+    <table class="list-table tablesorter" id="list" summary="List">
+        <thead>
+            <tr>
+                <th scope="col">Last Name</th>
+                <th scope="col">First Name</th>
+                <th scope="col">Contact Number</th>
+                <th scope="col">Email</th>
+            {{if can('activate', entity):}}
+                <th scope="col">Status</th>
+            {{pass}}
+            </tr>
+        </thead>
+        <tbody>
+	
+        {{if people != None: }}
+		{{if page>0:}}
+		<a href="{{=URL(args=[page-1])}}">previous</a>&nbsp;
+		{{pass}}
+	
+		{{if len(people)>items_per_page:}}
+		<a href="{{=URL(args=[page+1])}}">next</a>
+		{{pass}}
+            {{for person in people:}}
+            <tr class="clickable" onclick="go_to('{{=URL('view', args=str(person.id))}}')">
+                <td>{{=person.last_name}}</td>
+                <td>{{=person.first_name}}</td>
+                <td>{{=person.mobile}}</td>
+                <td>{{=person.email}}</td>
+                {{if can('activate', entity):}}
+                    <td>{{='Inactive' if person.deactivated else 'Active'}}</td>
+                {{pass}}
+            </tr>
+            {{pass}}
+        {{pass}}
+	
+        </tbody>
+    </table>
+</div>

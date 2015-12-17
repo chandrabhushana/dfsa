@@ -1,0 +1,202 @@
+
+import unittest
+import random
+from twill.commands import go, follow, fv, submit, find, notfind, url, debug
+#for other commands not imported: http://twill.idyll.org/commands.html 
+
+global suite, base_url, parse_url_for_id, twill_login, ADMIN_EMAIL, ADMIN_PASS, CLIENT_EMAIL, CLIENT_PASS
+
+debug('commands', False)
+
+"""
+    Since there is no javascript in the clients functionality (except the delete), 
+    the clients test will mostly use twill to emulate the browser and http requests
+    
+    Note that view tests require the server to be running and work on the real database, not fake db
+    This class should not test general login/logout functionality or quick links
+"""
+
+
+def generate_person():
+    global person
+    person = dict(first='MyFirstName', last='MyLastName', mobile=str(random.randint(1000000000, 9999999999)))
+
+class TestClientViewsAsAdmin(unittest.TestCase):
+    
+    def setUp(self):
+        pass
+    
+    def test1_setUpClass(self):
+        twill_login(ADMIN_EMAIL, ADMIN_PASS)
+        generate_person()
+    
+    def testZ_tearDownClass(self):
+        if client_id:
+            rows = db(db.people.id==int(client_id)).delete()
+            db.commit()
+    
+    def testClientPageFlow(self):
+        
+        #self.assertEquals(1,1)
+        follow('Create Client') #quick link
+        url('/clients/create')
+        find('<h2>Create Client</h2>')
+        find('<span class="required-message">\(<span class="m">\*</span>\) required field</span>')
+        
+        ##test for error
+        fv(1,'first_name','')
+        submit('Submit')
+        find('class="error"')
+        find('Please enter a first name')
+        find('Please enter a last name')
+        find('Please enter a unique mobile number')
+        
+        ##Test for success with the minimum number of required fields
+        first, last, mobile = (person['first'], person['last'], person['mobile']) 
+        fv(1,'first_name', first)
+        fv(1,'last_name', last)
+        fv(1,'mobile', mobile)
+        submit('Submit')
+        
+        url('(clients/view/)\d+')
+        
+        global client_id
+        client_id = parse_url_for_id()
+        
+        ##Check some main display Values
+        find('<h2>%(first)s %(last)s</h2>' % person)
+        find('<div class="infodisplay">')
+        find('<td>%(first)s</td>' % person)
+        find('<td>%(last)s</td>' % person)
+        find('<td>%(mobile)s</td>' % person)
+        find('<td>%(mobile)s@wfs.org.au</td>' % person)
+        
+        ##Check the links
+        find('clients/update/%s">Edit Details' % client_id)
+        #find('events/index[?]email=' + mobile + '%40wfs.org.au">Register for Event') # %40 = @ sign in html
+        find('<a class="delete button" href="/%(appname)s/deactivate/clients/%(client_id)s">Deactivate Client</a></span>' % globals())
+        
+        #Activities
+        find('<table class="list-table" id="list" summary="Activities">')
+        find('<span><a class="button" href="/%(appname)s/activities/create\?client=%(client_id)s">Add Activity</a></span>' % globals())
+    
+    
+        """
+        Testing Find Functionality
+        """
+        
+        follow('Find Client')
+        url('/clients/index')
+        find('<h2>Find Client</h2>')
+        find('<div id="search">')
+        find('<form name="search" method="post" enctype="multipart/form-data" action="">')
+        find('<table class="list-table" id="list" summary="List">')
+        find('<tr class="clickable" onclick="go_to\(\'/%(appname)s/clients/view/%(client_id)s\'\)">' % globals())
+        
+        first, last, mobile = (person['first'], person['last'], person['mobile'])
+        fv(1, 'first_name', first)
+        submit('Search')
+        
+        url('/clients/index')
+        find('<input type="text" name="first_name" value="%(first)s"' % person) #Test sticky
+        find('<tr class="clickable" onclick="go_to\(\'/%(appname)s/clients/view/%(client_id)s\'\)">' % globals())
+        
+        fv(1, 'first_name', '')
+        fv(1, 'last_name', last)
+        submit('Search')
+        
+        url('/clients/index')
+        find('<input type="text" name="last_name" value="%(last)s"' % person) #Test sticky
+        find('<tr class="clickable" onclick="go_to\(\'/%(appname)s/clients/view/%(client_id)s\'\)">' % globals())
+        
+        fv(1, 'first_name', '')
+        fv(1, 'last_name', '')
+        fv(1, 'mobile', mobile)
+        submit('Search')
+        
+        url('/clients/index')
+        find('<input type="text" name="mobile" value="%(mobile)s"' % person) #Test sticky
+        find('<tr class="clickable" onclick="go_to\(\'/%(appname)s/clients/view/%(client_id)s\'\)">' % globals())
+        
+        fv(1, 'first_name', first)
+        fv(1, 'last_name', last)
+        fv(1, 'mobile', mobile)
+        submit('Search')
+        
+        url('/clients/index')
+        find('<input type="text" name="first_name" value="%(first)s"' % person) #Test sticky
+        find('<input type="text" name="last_name" value="%(last)s"' % person) #Test sticky
+        find('<input type="text" name="mobile" value="%(mobile)s"' % person) #Test sticky
+        find('<tr class="clickable" onclick="go_to\(\'/%(appname)s/clients/view/%(client_id)s\'\)">' % globals())
+        
+        #Unable to test the row link in twill since it is javascript
+        
+        """
+        Testing View and Edit Functionality
+        """
+        go(base_url + '/clients/view/' + client_id)
+        follow('Edit Details')
+        url('clients/update/' + client_id)
+        find('<h2>Edit Client</h2>')
+        
+        ###Test an Error Update
+        fv(1, 'first_name', '')
+        submit()
+        find('<div class="error" id="first_name__error">Please enter a first name</div></td>')
+        
+        fv(1, 'first_name', 'NewFirstName')
+        fv(1, 'last_name', 'NewLastName')
+        submit()
+        
+        url('clients/view/' + client_id)
+        find('<h2>NewFirstName NewLastName</h2>')
+        find('<td>NewFirstName</td>')
+        find('<td>NewLastName</td>')
+        
+        #Test Breadcrumbs
+        follow('Edit Details')
+        follow('View Client')
+    
+        
+        """
+        Testing Delete Functionality
+        """
+        follow('Delete Client') #no javascript ability in twill
+        url('clients/index')
+        notfind('<tr class="clickable" onclick="go_to\(\'/%(appname)s/clients/view/%(client_id)s\'\)">' % globals())
+        
+        #make sure the old ID link redirects
+        go(base_url + '/clients/view/' + client_id)
+        url('default/index')
+        rows = db(db.people.id==int(client_id)).select()
+        self.assertEquals(rows.first().deleted, True)
+          
+
+class TestClientViewsAsClient(unittest.TestCase):
+    
+    def setUp(self):
+        pass
+    
+    def test1_setUpClass(self):
+        twill_login(CLIENT_EMAIL, CLIENT_PASS)
+
+    def testClientPageFlow(self):
+        from twill.commands import show
+        follow('My Profile') #quick link
+        #x=show()
+        find('<h2>My Profile</h2>')
+        find('<td><input class="string" id="auth_user_first_name" name="first_name" type="text" value="ClientFirst" /></td>')
+        find('<span><a class="button" href="/booking/default/user/change_password">Change My Password</a></span>')
+        
+    
+    def testZ_tearDownClass(self):
+        pass
+
+
+def _assertFormPage():
+    find('<table class="form-table">')
+    
+
+suite.addTest(unittest.makeSuite(TestClientViewsAsAdmin))
+suite.addTest(unittest.makeSuite(TestClientViewsAsClient))
+

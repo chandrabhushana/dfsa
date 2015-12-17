@@ -1,0 +1,23 @@
+<div id="search">
+    <form name="search" method="post" enctype="multipart/form-data" action="">
+        <table class="form-table">
+            <tbody>
+                <tr>
+                    <td>First Name: </td>
+                    <td><input type="text" name="first_name" value="{{=sticky_val('first_name')}}" id="first-search-text" size="15" /></td>
+                    <td>Last Name:</td>
+                    <td><input type="text" name="last_name" value="{{=sticky_val('last_name')}}" id="last-search-text" size="15" /></td>
+                </tr>
+                <tr>
+                    <td>Contact Number:</td>
+                    <td><input type="text" name="mobile" value="{{=sticky_val('mobile')}}" id="mobile-search-text" size="15" /></td>
+                    <td>Email:</td>
+                    <td><input type="text" name="email" value="{{=sticky_val('email')}}" id="email-search-text" size="15" /></td>
+                </tr>
+                <tr class="searchrow">
+                    <td><input type="submit" id="search-submit" value="Search" /></td>
+                </tr>
+            </tbody>
+        </table>
+    </form>
+</div>

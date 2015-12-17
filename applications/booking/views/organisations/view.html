@@ -1,0 +1,121 @@
+{{extend 'layout.html'}}
+
+{{if can('index', 'organisations'):}}
+<div id="breadcrumbs">
+    {{=link(text='Find Organisations', f='index')}} > View Organisation
+</div>
+{{pass}}
+
+<h2>{{=organisation.name}}</h2>
+
+<div class="infodisplay">
+    <table class="form-table">
+        <thead>
+            <tr>
+                <th class="form-input-col"></th>
+                <th class="form-label-col"></th>
+                <th class="form-input-col"></th>
+                <th class="form-label-col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="shform">
+                <td colspan="100%"><strong>Main Details</strong></td>
+            </tr>
+            <tr>
+                <td>Organisation: {{=organisation.name}}</td>
+               
+            </tr>
+            <tr>
+                <td>Description: {{=organisation.desc}}</td>
+            </tr>
+            <tr>
+                <td>Street Address: {{=organisation.street_addr}}</td>
+                <td>Suburb: {{=organisation.suburb_addr}}</td>
+            </tr>
+            
+             <tr>
+                <td>City: {{=organisation.city_addr}}</td>
+                <td>Postcode: {{=organisation.postcode_addr}}</td>
+            </tr> 
+            
+            <tr class="shform">
+                <td colspan="100%"><strong>Contact Details</strong></td>
+            </tr>
+            <tr>
+                <td>Contact Name: {{=organisation.contact_name}}</td>
+                <td>Contact Email: {{=organisation.contact_email}}</td>
+                
+            </tr>
+            <tr>
+                <td>Contact Number: {{=organisation.contact_phone}}</td>
+                <td>Alternate Contact Number: {{=organisation.contact_mobile}}</td>
+            </tr>   
+            <tr>
+                <td>Comments: {{=organisation.comments}}</td>
+            </tr>       
+          
+            <tr class="shform">
+                <td colspan="100%"><strong>Organisation Type</strong></td>
+            </tr>
+            {{if organisation.organisations_types =='Referral Organisation':}}
+            <tr>
+                <tr>
+                    <td><strong>Organisation Type: Referral Organisation</strong></td>
+                </tr>
+                <tr>
+                    <td>Disability Employment Services: {{=bool2yn(organisation.is_disability_ref)}}</td>
+                </tr>
+                <tr>
+                    <td>Job Placement Services: {{=bool2yn(organisation.is_job_placement_service)}}</td>
+                </tr>
+                <tr>
+                    <td>Education: {{=bool2yn(organisation.is_education_ref)}}</td>
+                </tr>
+                <tr>
+                    <td>Work and Income: {{=bool2yn(organisation.is_work_income)}}</td>
+                </tr>
+                <tr>
+                    <td>Dept.of Corrective Services: {{=bool2yn(organisation.is_dept_corrective)}}</td>
+                </tr>
+                <tr>
+                    <td>Other: {{=organisation.other_ref}}</td>
+                </tr>
+            </tr>
+            
+            {{else:}}
+            <tr>
+                <tr>
+                    <td><strong>Organisation Type: Sponsor</strong></td>
+                </tr>
+                <tr>
+                    <td>Financial: {{=bool2yn(organisation.is_financial_sponsor)}}</td>
+                </tr>
+                <tr>
+                    <td>In Kind Donations: {{=bool2yn(organisation.is_in_kind_doanations)}}</td>
+                </tr>
+                <tr>
+                    <td>Volunteer: {{=bool2yn(organisation.is_volunteer_sponsor)}}</td>
+                </tr>
+                <tr>
+                    <td>Other: {{=organisation.other_sponsor}}</td>
+                </tr>
+            </tr>
+            {{pass}}
+         </tbody>
+    </table>
+    
+    <div id="infodisplay_buttons">
+        {{if organisation.deactivated==False:}}
+            {{if can('update', 'organisations'):}}
+                {{=button('Edit Details', f='update', args=organisation.id)}}
+            {{pass}}
+            {{if can('deactivate', 'organisations'):}}
+                {{=deactivate_button(text='Deactivate Organisation', args=organisation.id)}}
+            {{pass}}
+        {{else:}}
+            {{=activate_button(text='Activate Organisation', args=organisation.id)}}
+        {{pass}}
+    </div>
+    
+</div>

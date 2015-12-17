@@ -1,0 +1,35 @@
+<div id="organisations-list">
+    <table class="list-table tablesorter" summary="Client List">
+        <thead>
+            <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Description</th>
+                <th scope="col">Contact Name</th>
+            {{if can('activate', entity):}}
+                <th scope="col">Status</th>
+            {{pass}}
+            </tr>
+        </thead>
+        <tbody>
+        {{if organisations != None: }}
+        {{if page>0:}}
+        <a href="{{=URL(args=[page-1])}}">previous</a>&nbsp;
+        {{pass}}
+    
+        {{if len(organisations)>items_per_page:}}
+        <a href="{{=URL(args=[page+1])}}">next</a>
+        {{pass}}
+            {{for organisation in organisations:}}
+            <tr class="clickable" onclick="go_to('{{=URL('view', args=str(organisation.id))}}')">
+                <td>{{=organisation.name}}</td>
+                <td>{{=organisation.desc}}</td>
+                <td>{{=organisation.contact_name}}</td>
+                {{if can('activate', entity):}}
+                    <td>{{='Inactive' if organisation.deactivated else 'Active'}}</td>
+                {{pass}}
+            </tr>
+            {{pass}}
+        {{pass}}
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,18 @@
+
+{{people_entity = entity_by_person_type(person.type)}}
+
+{{current_text='New Activity' if action=='create' else ('View Activity' if readonly else 'Edit Activity')}}
+
+{{if can('view', people_entity):}}
+<div id="breadcrumbs">
+    {{if can('index', people_entity):}}
+    {{=link(text='Find ' + person.type, c=people_entity, f='index')}} > 
+    {{pass}}
+    {{=link(text='View ' + person.type, c=people_entity, f='view', args=str(person.id))}} >
+    {{=current_text}}
+</div>
+{{pass}}
+
+<h2>{{=current_text}}</h2>
+
+{{include request.controller + '/form.load'}}

@@ -1,0 +1,10 @@
+{{extend 'layout.html'}}
+
+{{report_name = 'Items Distributed'}}
+{{gender_field = True}}
+{{total_message = 'Total Items Distributed'}}
+{{total_val = sum_total}}
+{{start_and_end = True}}
+{{effective_date = False}}
+
+{{include 'reports/reports.load'}}

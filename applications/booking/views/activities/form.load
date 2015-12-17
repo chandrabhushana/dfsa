@@ -1,0 +1,234 @@
+{{if not readonly:}}{{=required_message()}}{{pass}}
+{{=form.custom.begin}}
+
+<table class="form-table">
+    <thead>
+        <tr>
+            <th class="form-label-col"></th>
+            <th class="form-input-col"></th>
+            <th class="form-label-col"></th>
+            <th class="form-input-col"></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr class="shform">
+            <td colspan="100%">Activity Details<br/><hr/></td>
+        </tr>
+        
+        <tr>
+            <td>{{=form.custom.label.is_no_show}}</td>
+            <td>{{=form.custom.widget.is_no_show}}</td>
+        </tr>
+        <tr>
+            <td>{{=required_indicator(not readonly)}}{{=form.custom.label.type}}:</td>
+            {{if readonly:}}
+                <td><div id="activities_type">{{=form.custom.widget.type}}</div></td>
+            {{else:}}
+                <td>{{=form.custom.widget.type}}</td>
+            {{pass}}
+        </tr>
+        <tr>
+            <td>{{=required_indicator(not readonly)}}{{=form.custom.label.date}}:</td>
+            <td>{{=form.custom.widget.date}}</td>
+        </tr>
+        
+{{if person.type==PERSON_TYPE_CLIENT:}}
+	<tr>
+            <td><span class="m"></span> {{=form.custom.label.comments}}:</td>
+            <td>{{=form.custom.widget.comments}}</td>
+	</tr>
+	
+    	
+    </tbody>
+</table>
+
+<div id="items_provided" hidden="hidden">
+<table class="form-table" width="100%">
+    <tbody>
+        
+        <tr class="shform">
+            <td colspan="100%">Items Provided<br/><hr/></td>
+        </tr>
+        <tr>
+	
+	        <td width="100%">
+	        	<table width="100%">
+	        	<tr>
+	        		<td width="20%"><span class="m">*</span> {{=form.custom.label.type_of_clothing}}:</td>
+	            	<td width="80%" align="left">{{=form.custom.widget.type_of_clothing}}</td>
+	        	</tr>
+	        	</table>
+	        </td>
+		
+    	</tr>
+        <tr>
+        	 <td width="100%">
+	        	<table width="100%">
+		        	<tr>
+	            		<td width="35%">{{=form.custom.label.shoe_size}}:
+	           			{{=form.custom.widget.shoe_size}}</td>         
+	           			 <td width="35%">{{=form.custom.label.clothing_size}}:
+	          			{{=form.custom.widget.clothing_size}}</td>  
+	        		</tr>
+	        		<tr>
+				        <td width="15%">{{=form.custom.label.image}}:</td>
+				        <td width="85%">{{=form.custom.widget.image}}
+				        {{if request.function=='update' and activity.image != None:}}				        
+						{{ if activity.image != "":}}
+				                <a href="/booking/default/download/{{=activity.image}}">Download image</a>
+						{{pass}}
+						{{pass}}
+				            </td>
+    				</tr>
+    				{{if request.function=='update' and activity.image != None:}} 
+    				{{if activity.image != "":}}
+				    <tr>
+				    	<td>
+						<img src="/booking/default/download/{{=activity.image}}" height="100px" width="150px"/>
+						</td>
+				    </tr>
+				    {{pass}}
+				    {{pass}}
+        		</table>
+	        </td>
+	   </tr>       
+        <tr>
+        <td width="100%">
+        	<table width="100%">
+	        	<tr>
+		        	<td width="50%" valign="top" >
+			        	<table width="100%" align="left">
+				         {{items_list = ACTIVITIES_ITEMS_COMMON}}
+				        {{#i=items_list.__iter__()}}
+				        {{for x in items_list:}}
+					        <tr>
+					            <td align="right">{{=form.custom.widget[x]}}</td><td>{{=x.replace('nbr_','')}}</td>  
+					        </tr>
+				        {{pass}}
+			           </table>
+	           	</td>
+	        	<td width="50%" valign="top">
+		        	<table valign="top" width="100%">
+						{{items_lists = ACTIVITIES_ITEMS_ONLY_MALE if person.gender=='Male' else ACTIVITIES_ITEMS_ONLY_FEMALE}}
+			            {{#y = iter(items_list1)}}
+			            {{#try:}}
+			            {{for y in items_lists:}}
+			            {{if y=='nbr_esteem_jewellery':}}
+						    <tr>
+						        <td align="right">{{=form.custom.widget[y]}}</td>
+						        <td>
+						            {{='DFS '+y[4:10]+' '+y[11:]}}
+						        </td>
+						    </tr>
+						    {{else:}}
+			            <tr>
+			            	<td align="right">{{=form.custom.widget[y]}}</td>
+			            	<td>{{=y.replace('nbr_','')}}</td>
+			            </tr>
+			            {{#except StopIteration:}}
+			            {{pass}}
+			            {{pass}}          
+					</table>
+		        </td>
+	        </tr>
+        </table>
+ 		</td>
+       </tr> 
+        </tbody>
+</table>
+</div>
+
+<div id="services_provided" hidden="hidden">
+<table class="form-table">
+    <tbody>
+        <tr class="shform">
+            <td colspan="100%">Resource Centre<br/><hr/></td>
+        </tr>
+        
+        <tr>
+            <td>{{=form.custom.label.pref_jobsearch}}:</td>
+            <td>{{=form.custom.widget.pref_jobsearch}}</td>
+            <td>{{=form.custom.label.pref_presentation}}:</td>
+            <td>{{=form.custom.widget.pref_presentation}}</td>
+        </tr>
+        <tr>
+            <td>{{=form.custom.label.pref_computer}}:</td>
+            <td>{{=form.custom.widget.pref_computer}}</td>
+            <td>{{=form.custom.label.pref_resume}}:</td>
+            <td>{{=form.custom.widget.pref_resume}}</td>
+        </tr>
+        <tr>
+            <td>{{=form.custom.label.pref_lifeskills}}:</td>
+            <td>{{=form.custom.widget.pref_lifeskills}}</td>
+            <td>{{=form.custom.label.pref_socialmedia}}:</td>
+            <td>{{=form.custom.widget.pref_socialmedia}}</td>
+            
+        </tr>
+        <tr>
+            <td>{{=form.custom.label.pref_mentoring}}:</td>
+            <td>{{=form.custom.widget.pref_mentoring}}</td>
+            <td>{{=form.custom.label.pref_other}}:</td>
+            <td>{{=form.custom.widget.pref_other}}</td>
+        </tr>
+    </tbody>
+</table>        
+</div>
+
+{{else:}}
+	{{ if person.type==PERSON_TYPE_EMPLOYEE:}}
+        <tr>
+            {{if not readonly:}}
+                <td><span class="m">*</span> Time Range</td>
+            {{else:}}
+                <td>Time Range</td>
+            {{pass}}
+            <td>{{=form.custom.widget.start_time}} to {{=form.custom.widget.end_time}}</td>
+        </tr>
+        {{if person.type!=PERSON_TYPE_CLIENT:}}
+        <tr>
+            <td><span class="m">*</span>{{=form.custom.label.gender}}:</td>
+            <td>{{=form.custom.widget.gender}}</td>
+        </tr>
+        {{pass}}
+        {{pass}}
+       </tbody>
+</table>
+{{pass}}
+{{if person.type==PERSON_TYPE_VOLUNTEER:}}
+<div id="gender_time">
+			<table class="form-table">
+		    <tbody>
+		        <tr>
+		            <td>Time Range:</td>
+		          	<td>{{=form.custom.widget.start_time}} to {{=form.custom.widget.end_time}}</td>
+		        </tr>
+		        <tr>
+		            <td>{{=form.custom.label.gender}}:</td>
+		            <td>{{=form.custom.widget.gender}}</td>
+		        </tr>
+		    </tbody>
+			</table>        
+			</div>
+{{pass}}
+
+<table class="form-table">
+    <tbody>
+        <tr class="submitrow">
+            <td>{{=form.custom.submit}}</td>
+            <td><input style="margin-left:0px" id="cancel" class="submit" type="reset" onclick="window.history.back()" value="Cancel"></td>
+        </tr>
+    </tbody>
+</table>
+
+
+{{=form.custom.end}}
+
+
+<script>
+    $(document).ready(function(){
+        onActivitiesFormPageReady();
+        onActivitiesShowChecked()
+       // onActivitiesPageReady();
+        
+    });
+</script>

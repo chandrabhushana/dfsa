@@ -1,0 +1,107 @@
+{{=required_message()}}
+{{=form.custom.begin}}
+
+<table class="form-table">
+    <thead>
+        <tr>
+            <th class="form-label-col"></th>
+            <th class="form-input-col"></th>
+            <th class="form-label-col"></th>
+            <th class="form-input-col"></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr class="shform">
+            <td colspan="100%">Contact Details<br/><hr/><td>
+        </tr>
+        
+        <tr>
+            <td><span class="m">*</span> First Name:</td>
+            <td>{{=form.custom.widget.first_name}}</td>
+            <td><span class="m">*</span> Last Name:</td>
+            <td>{{=form.custom.widget.last_name}}</td>
+        </tr>
+        <tr>
+            <td><span class="m">*</span> {{=form.custom.label.mobile}}:</td>
+            <td>{{=form.custom.widget.mobile}}</td>
+            <td><span class="m">*</span> {{=form.custom.label.email}}:</td>
+            <td>{{=form.custom.widget.email}}</td>
+        </tr>
+        <tr>
+            <td>{{=form.custom.label.second_contact_number}}:</td>
+            <td>{{=form.custom.widget.second_contact_number}}</td>
+        </tr>
+        <tr height="20"><td /></tr>
+        <tr>
+            <td>{{=form.custom.label.street_addr}}:</td>
+            <td>{{=form.custom.widget.street_addr}}</td>
+            <td><span class="m">*</span> {{=form.custom.label.suburb_addr}}:</td>
+            <td>{{=form.custom.widget.suburb_addr}}</td>
+        </tr>
+        <tr>
+            <td>{{=form.custom.label.city_addr}}:</td>
+            <td>{{=form.custom.widget.city_addr}}</td>
+            <td>{{=form.custom.label.postcode_addr}}:</td>
+            <td>{{=form.custom.widget.postcode_addr}}</td>
+        </tr>
+        <tr class="shform">
+            <td colspan="100%">Other Information<br/><hr/></td>
+        </tr>
+        <tr>
+            <td>Emergency Contact Name:</td>
+            <td>{{=form.custom.widget.contact_name}}</td>
+            <td>Emergency Contact Number:</td>
+            <td>{{=form.custom.widget.contact_number}}</td>
+        </tr>
+        <tr>
+            <td>Comments:</td>
+            <td>{{=form.custom.widget.comments}}</td>
+        </tr>    
+        <tr class="shform">
+            <td colspan="100%">Volunteer Preferences<br/><hr/><td>
+        </tr>
+    </tbody>
+</table>
+
+<table class="form-table">
+    <thead>
+        <tr>
+            <th class="form-label-3col"></th>
+            <th class="form-input-3col"></th>
+            <th class="form-label-3col"></th>
+            <th class="form-input-3col"></th>
+            <th class="form-label-3col"></th>
+            <th class="form-input-3col"></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>{{=form.custom.label.pref_showroom}}:</td>
+            <td>{{=form.custom.widget.pref_showroom}}</td>
+            <td>{{=form.custom.label.pref_fitting}}:</td>
+            <td>{{=form.custom.widget.pref_fitting}}</td>
+            <td>{{=form.custom.label.pref_admin}}:</td>
+            <td>{{=form.custom.widget.pref_admin}}</td>
+        </tr>
+        <tr>
+            <td>{{=form.custom.label.pref_collection}}:</td>
+            <td>{{=form.custom.widget.pref_collection}}</td>
+            <td>{{=form.custom.label.pref_donations}}</td>
+            <td>{{=form.custom.widget.pref_donations}}</td>
+            <td>{{=form.custom.label.pref_careers}}</td>
+            <td>{{=form.custom.widget.pref_careers}}</td>
+        </tr>
+    <tr>
+        <td>{{=form.custom.label.pref_other}}:</td>
+        <td>{{=form.custom.widget.pref_other}}</td>
+    </tr>
+        
+        <tr class="submitrow">
+            <td>{{=form.custom.submit}}</td>
+            <td><input style="margin-left:0px" id="cancel" class="submit" type="reset" onclick="window.history.back()" value="Cancel"></td>
+        </tr>
+    </tbody>
+</table>
+
+
+{{=form.custom.end}}

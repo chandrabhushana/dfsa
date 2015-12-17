@@ -1,0 +1,66 @@
+import unittest
+from twill.commands import follow, find, notfind
+
+global suite, base_url, parse_url_for_id, twill_login
+global ADMIN_EMAIL, ADMIN_PASS, CLIENT_EMAIL, CLIENT_PASS, THIRD_PARTY_EMAIL, THIRD_PARTY_PASS
+
+class TestCommonAsAdmin(unittest.TestCase):
+    
+    def setUp(self):
+        twill_login(ADMIN_EMAIL, ADMIN_PASS)
+    
+    def testLinks(self):
+        find('Home')
+        find('My Profile')
+        find('Events')
+        find('Find Client')
+        find('Create Client')
+        find('Find Employee')
+        find('Create Employee')
+        find('Organisations')
+        find('View Reports')
+        follow('Logout')
+    
+class TestCommonAsClient(unittest.TestCase):
+    
+    def setUp(self):
+        twill_login(CLIENT_EMAIL, CLIENT_PASS)
+    
+    def testLinks(self):
+        find('Home')
+        find('My Profile')
+        find('Events')
+        notfind('Find Client')
+        notfind('Create Client')
+        notfind('Find Employee')
+        notfind('Create Employee')
+        notfind('Organisations')
+        notfind('View Reports')
+        follow('Logout')
+    
+    
+class TestCommonAsAgency(unittest.TestCase):
+    
+    def setUp(self):
+        twill_login(THIRD_PARTY_EMAIL, THIRD_PARTY_PASS)
+    
+    def testLinks(self):
+        find('Home')
+        find('My Profile')
+        find('Events')
+        find('Find Client')
+        find('Create Client')
+        notfind('Find Employee')
+        notfind('Create Employee')
+        notfind('Organisations')
+        notfind('View Reports')
+        follow('Logout')
+
+
+
+suite.addTest(unittest.makeSuite(TestCommonAsAdmin))
+suite.addTest(unittest.makeSuite(TestCommonAsClient))
+suite.addTest(unittest.makeSuite(TestCommonAsAgency))
+
+
+#suite.addTest(unittest.makeSuite(TestClientViewsAsNonAdmin))

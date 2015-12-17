@@ -1,0 +1,31 @@
+{{update_auth=can('update', 'event_types')}}
+<div id="event_types">
+    <h2>Event Types</h2>
+    <table class="list-table" id="event_types_list" summary="Event Type List">
+    <thead>
+        <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Color</th>
+        </tr>
+    </thead>
+    <tbody>
+    {{for event_type in event_types:}}
+        <tr class="clickable" onclick="go_to('{{=URL('update', extension='', args=event_type.id)}}')">
+            <td>{{=event_type.name}}</td>
+            <td><input style="width: 19px; border: solid 1px #33677F; background:{{=event_type.color or ''}};" disabled=True  /></td>
+        </tr>
+    {{pass}}
+    {{if new_event_type!=None:}}
+        <tr class="clickable" onclick="go_to('{{=URL('update', extension='', args=new_event_type['id'])}}')">
+            <td>{{=new_event_type['name']}}</td>
+            <td><input style="width: 19px; border: solid 1px #33677F; background:{{=new_event_type['color'] or ''}};" disabled=True  /></td>
+        </tr>
+    {{pass}}
+    </tbody>
+</table>
+</div>
+
+{{if form!=None:}}
+<span class="sh">Create Event Type</span>
+{{include request.controller + '/form.load'}}
+{{pass}}

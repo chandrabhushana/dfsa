@@ -1,0 +1,11 @@
+{{extend 'layout.html'}}
+
+{{report_name = 'All Employee Activities'}}
+{{gender_field = True}}
+{{total_message = 'Total'}}
+{{total_val = total if request.args(0)==FITTING_REPORTS.NO_SHOWS else len(result)}}
+{{start_and_end = True}}
+{{start_not_end = False}}
+{{effective_date = False}}
+
+{{include 'reports/reports.load'}}

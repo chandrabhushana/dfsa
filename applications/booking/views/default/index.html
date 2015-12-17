@@ -1,0 +1,9 @@
+{{right_sidebar_enabled=False}}
+{{left_sidebar_enabled=False}}
+{{extend 'layout.html'}}
+{{if is_admin:}}
+<h2><b>{{=auth.user.first_name}}</b>, welcome to the Online Booking System</h2>
+{{else:}}
+<h2><b>{{=auth.user.first_name + ' ' + auth.user.last_name}}</b>, welcome to the Online Booking System</h2>
+{{pass}}
+<br/>

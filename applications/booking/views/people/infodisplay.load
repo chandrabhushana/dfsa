@@ -1,0 +1,66 @@
+{{controller = request.controller}}
+{{if is_admin and controller=='default':}}
+<h2>{{=person.first_name}}</h2>
+{{else:}}
+<h2>{{=person.first_name+' '+person.last_name}}</h2>
+{{pass}}
+<div class="infodisplay">
+    <table class="form-table">
+         <thead>
+            <tr>
+                <th class="form-input-col"></th>
+                <th class="form-label-col"></th>
+                <th class="form-input-col"></th>
+                <th class="form-label-col"></th>
+            </tr>
+        </thead>
+        <tbody>
+        	{{if person.type==PERSON_TYPE_ADMIN:}}
+        	<tr>
+        	<td>Email:</td><td>{{=person.email}}</td>
+        	</tr>
+			
+			{{elif person.type==PERSON_TYPE_AGENCY:}}
+			<tr><td height="5"/></tr>
+            <tr>
+                <td>First Name:</td><td>{{=person.first_name}}</td>
+                <td>Last Name:</td><td>{{=person.last_name}}</td>
+            </tr>
+            <tr>
+                <td>Contact Number:</td><td>{{=person.mobile}}</td>
+                <td>Email/Login:</td><td>{{=person.email}}</td>
+            </tr>
+        	{{else:}}
+        	
+            <tr><td height="5"/></tr>
+            <tr>
+                <td>First Name:</td><td>{{=person.first_name}}</td>
+                <td>Last Name:</td><td>{{=person.last_name}}</td>
+            </tr>
+            <tr>
+                <td>Contact Number:</td><td>{{=person.mobile}}</td>
+                <td>Email:</td><td>{{=person.email}}</td>
+            </tr>
+            {{pass}}
+        </tbody>
+    </table>
+    
+    <div id="infodisplay_buttons">
+        {{if person.id==auth.user_id:}}
+        
+            {{=button('Edit Profile', c='default', f='user', args='profile', check_auth=False)}}
+        {{else:}}
+            {{if person.deactivated==False:}}
+                {{=button('Edit Details', c=entity, f='update', args=person.id, check_auth=True)}}
+                {{=deactivate_button(text='Deactivate ' + person_type, f=entity, args=person.id, check_auth=True)}}
+                {{if person.registration_key=='':}}
+                    {{=button('Disable Login', c=entity, f='disable_login', args=person.id, check_auth=True)}}
+                {{else:}}
+                    {{=button('Enable Login', c=entity, f='enable_login', args=person.id, check_auth=True)}}
+                {{pass}}
+            {{else:}}
+                {{=activate_button(text='Activate ' + person_type, f=entity, args=person.id, check_auth=True)}}
+            {{pass}}
+        {{pass}}
+    </div>
+</div>

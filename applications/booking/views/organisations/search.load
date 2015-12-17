@@ -1,0 +1,16 @@
+<div id="search">
+    <form name="search" method="post" enctype="multipart/form-data" action="">
+        <table class="form-table">
+            <tbody>
+                <tr>
+                    <td>Name:</td>
+                    <td><input type="text" name="name" value="{{=sticky_val('name')}}" size="15" /></td>
+                    
+                </tr>
+                <tr class="searchrow">
+                    <td><input type="submit" id="search-submit" value="Search" class="button" /></td>
+                </tr>
+            </tbody>
+        </table>
+    </form>
+</div>

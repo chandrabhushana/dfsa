@@ -1,0 +1,86 @@
+{{######NOTE: If you add a div, make sure to add the open tag to BOTH the if and the else}}
+{{if readonly:}}
+<div class="view_event_div infodisplay" id="view_event_{{=event_id}}">
+    <strong>Event Details</strong>
+{{else:}}
+<div class="update_event_div" id="update_event_{{=event_id}}">
+   {{if response.flash:}} {{=response.flash}}<br/> {{pass}}
+   {{=required_message()}}
+{{pass}}
+{{######END NOTE MARKER:}}
+
+    {{=form.custom.begin}}
+    <table>
+        
+        {{=form_row(form, 'type')}}
+        {{=form_row(form, 'name', mandatory=not readonly)}}
+        {{=form_row(form, 'desc')}}
+        {{=form_row(form, 'slots', mandatory=not readonly)}}
+        {{=form_row(form, 'date', mandatory=not readonly)}}
+        <tr>
+            {{if not readonly:}}
+            <td><span class="m">*</span> Time Range</td>
+            {{else:}}
+            <td>Time Range</td>
+            {{pass}}
+            <td>{{=form.custom.widget.start_time}} to {{=form.custom.widget.end_time}}</td>
+        </tr>
+    {{affiliate_url = http_host}}
+
+    {{if affiliate_url == AFFILIATE_BBN:}}
+        <tr><td>Address:</td><td>2/47 Anderson St, Fortitude Valley, QLD, 4006</td></tr>
+        <tr><td>Getting there:</td><td>TBC</td></tr>
+        <tr><td>Contact#:</td><td>07 3216 1969</td></tr>
+
+    {{elif affiliate_url == AFFILIATE_SYD:}}
+        <tr><td>Address:</td><td>132 Marrickville Road,<br/>Marrickville  NSW</td></tr>
+        <tr><td>Getting there:</td><td>Train Station - Sydenham</td></tr>
+        <tr><td>Contact#:</td><td>1800 773 456</td></tr>
+
+    {{elif affiliate_url == AFFILIATE_MELB:}}
+        <tr><td>Address:</td><td>24 Eastern Road,<br/> South Melbourne, VIC</td></tr>
+        <tr><td>Getting there:</td><td>Tram #1, Stop 22</td></tr>
+        <tr><td>Contact#:</td><td>03 9078 1750</td></tr>
+
+    {{elif affiliate_url == AFFILIATE_MP_RBUD:}}
+        <tr><td>Address:</td><td>Suite 8, Level 1 869 Point Nepean Road,<br/> Rosebud, Victoria 3939</td></tr>
+    <tr><td>Getting there:</td><td>via bus: Bus Route 787 and 788; via car: Free car parking at rear of building</td></tr>
+    <tr><td>Contact#:</td><td>03 5982 3157</td></tr>
+
+    {{elif affiliate_url == AFFILIATE_MP_FSTON:}}
+        <tr><td>Address:</td><td>Shop 3 Balmoral Walk, Bayside Shopping Centre, Frankston, VIC 3199</td></tr>
+    <tr><td>Getting there:</td><td>via train/bus: short walk from Frankston Station; via car: parking available nearby (small charge)</td></tr>
+    <tr><td>Contact#:</td><td>03 9770 0220</td></tr>
+
+    {{elif affiliate_url == AFFILIATE_AUCK:}}
+        <tr><td>Address:</td><td>4 Boston Road, Mount Eden, Auckland</td></tr>
+    <tr><td>Getting there:</td><td>via bus/train: very close to Mount Eden train station; via car: limited free street parking for 60 mins or nearby Wilson carpark (bring change or credit/eftpos card)</td></tr>
+    <tr><td>Contact#:</td><td>09 377 2762 or email admin@dfsa.org.nz</td></tr>
+    
+    {{else:}}
+    {{pass}}
+
+        {{if can(action, 'events'):}}
+        
+        <tr height="5"><td /></tr>
+        
+        <tr id="event-submitrow">
+            <td id="event-id">
+            {{if not readonly and action=='update':}}
+                {{=deactivate_event_button('Deactivate Event', args=event_id, check_auth=True)}}
+            {{pass}}
+            </td>
+            <td>{{=form.custom.submit}}</td>
+        </tr>
+        {{pass}}
+    </table>
+    {{=form.custom.end}}
+</div>
+
+<script>
+    $(document).ready(function(){
+    deactivateEventConfirmationToEl($('#event-id'));
+        updateEventConfirmationToEl($('#update_event_{{=event_id}} input[type="submit"]'));
+         
+    });
+</script>

@@ -1,0 +1,5 @@
+repo: 5f073a52a0c57aa5e1c09df042ff1fa87382cae7
+node: 5c46ca1760b2daabb173f70dc5f52e39472bd30d
+branch: R3_dev
+latesttag: stable
+latesttagdistance: 305

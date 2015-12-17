@@ -1,0 +1,280 @@
+timestamp: 2014-02-13T14:06:39.444000
+CREATE TABLE organisations(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    abn CHAR(512),
+    name CHAR(512) NOT NULL DEFAULT '',
+    desc TEXT,
+    contact_name CHAR(512),
+    contact_phone CHAR(512),
+    contact_mobile CHAR(512),
+    contact_email CHAR(512),
+    comments TEXT,
+    street_addr TEXT NOT NULL DEFAULT '',
+    suburb_addr CHAR(512) NOT NULL DEFAULT '',
+    state_addr CHAR(512) NOT NULL DEFAULT '',
+    postcode_addr CHAR(512) NOT NULL DEFAULT '',
+    organisations_types CHAR(512) NOT NULL DEFAULT '',
+    is_disability_ref CHAR(1),
+    is_jobservice_aus_ref CHAR(1),
+    is_community_ref CHAR(1),
+    is_education_ref CHAR(1),
+    other_ref CHAR(512),
+    is_in_kind_doanations CHAR(1),
+    is_financial_sponsor CHAR(1),
+    is_volunteer_sponsor CHAR(1),
+    other_sponsor CHAR(512),
+    is_dept_employment CHAR(1),
+    is_dept_corrective CHAR(1),
+    created_on TIMESTAMP,
+    created_by INTEGER,
+    updated_on TIMESTAMP,
+    updated_by INTEGER,
+    deactivated CHAR(1) NOT NULL DEFAULT 'F'
+);
+success!
+timestamp: 2014-02-13T14:06:39.464000
+CREATE TABLE activation_dates(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    record_type CHAR(512),
+    record_id CHAR(512),
+    de_activate CHAR(512),
+    date TIMESTAMP,
+    created_on TIMESTAMP,
+    created_by INTEGER,
+    updated_on TIMESTAMP,
+    updated_by INTEGER,
+    deactivated CHAR(1) NOT NULL DEFAULT 'F'
+);
+success!
+timestamp: 2014-02-13T14:06:39.756000
+CREATE TABLE auth_user(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    first_name CHAR(128),
+    last_name CHAR(128),
+    email CHAR(512),
+    password CHAR(512),
+    registration_key CHAR(512),
+    reset_password_key CHAR(512),
+    type CHAR(512),
+    mobile CHAR(512) NOT NULL DEFAULT '',
+    title CHAR(512),
+    street_addr TEXT,
+    suburb_addr CHAR(512),
+    state_addr CHAR(512),
+    postcode_addr CHAR(512),
+    type_of_job CHAR(512),
+    comments TEXT,
+    length_of_time_unemployed CHAR(512),
+    educational_level CHAR(512),
+    date_of_birth DATE,
+    date_trained DATE,
+    gender CHAR(512),
+    age_range CHAR(512),
+    ethnicity CHAR(512),
+    referral_contact_email CHAR(512),
+    medical_conditions CHAR(512),
+    contact_name CHAR(512),
+    contact_number CHAR(512),
+    second_contact_number CHAR(512),
+    organisation INTEGER,
+    shoe_size CHAR(512),
+    clothing_size CHAR(512),
+    job_type CHAR(512),
+    pref_going_places_network CHAR(1),
+    pref_professional_womens_group CHAR(1),
+    pref_permission_to_photo CHAR(1),
+    pref_permission_to_follow_up CHAR(1),
+    pref_permission_to_invite_events CHAR(1),
+    pref_showroom CHAR(1),
+    pref_fitting CHAR(1),
+    pref_admin CHAR(1),
+    pref_police CHAR(1),
+    pref_children_check CHAR(1),
+    pref_induction CHAR(1),
+    pref_shadow CHAR(1),
+    pref_collection CHAR(1),
+    pref_donations CHAR(1),
+    pref_mentoring CHAR(1),
+    pref_careers CHAR(1),
+    pref_jobsearch CHAR(1),
+    pref_presentation CHAR(1),
+    pref_resume CHAR(1),
+    pref_computer CHAR(1),
+    pref_interview CHAR(1),
+    pref_workshops CHAR(1),
+    job_obtained CHAR(1),
+    pref_other CHAR(512),
+    created_on TIMESTAMP,
+    created_by INTEGER,
+    updated_on TIMESTAMP,
+    updated_by INTEGER,
+    deactivated CHAR(1) NOT NULL DEFAULT 'F'
+);
+success!
+timestamp: 2014-02-13T14:06:39.783000
+CREATE TABLE auth_group(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    role CHAR(512),
+    description TEXT
+);
+success!
+timestamp: 2014-02-13T14:06:39.799000
+CREATE TABLE auth_membership(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    user_id INTEGER REFERENCES auth_user(id) ON DELETE CASCADE,
+    group_id INTEGER REFERENCES auth_group(id) ON DELETE CASCADE
+);
+success!
+timestamp: 2014-02-13T14:06:39.816000
+CREATE TABLE auth_permission(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    group_id INTEGER REFERENCES auth_group(id) ON DELETE CASCADE,
+    name CHAR(512),
+    table_name CHAR(512),
+    record_id INTEGER
+);
+success!
+timestamp: 2014-02-13T14:06:39.832000
+CREATE TABLE auth_event(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    time_stamp TIMESTAMP,
+    client_ip CHAR(512),
+    user_id INTEGER REFERENCES auth_user(id) ON DELETE CASCADE,
+    origin CHAR(512),
+    description TEXT
+);
+success!
+timestamp: 2014-02-13T14:06:39.849000
+CREATE TABLE auth_cas(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    user_id INTEGER REFERENCES auth_user(id) ON DELETE CASCADE,
+    created_on TIMESTAMP,
+    url CHAR(512),
+    uuid CHAR(512)
+);
+success!
+timestamp: 2014-02-13T14:06:39.874000
+CREATE TABLE activities(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    person_id INTEGER,
+    type CHAR(512),
+    type_of_clothing CHAR(512),
+    date DATE,
+    is_no_show CHAR(1),
+    clothing_size CHAR(512),
+    comments TEXT,
+    shoe_size CHAR(512),
+    start_time CHAR(512) NOT NULL DEFAULT '09:00',
+    end_time CHAR(512) NOT NULL DEFAULT '09:15',
+    gender CHAR(512),
+    image CHAR(512),
+    person_type CHAR(512),
+    pref_jobsearch CHAR(1),
+    pref_presentation CHAR(1),
+    pref_resume CHAR(1),
+    pref_computer CHAR(1),
+    pref_interview CHAR(1),
+    pref_workshops CHAR(1),
+    job_obtained CHAR(1),
+    pref_mentoring CHAR(1),
+    pref_other CHAR(512),
+    created_on TIMESTAMP,
+    created_by INTEGER,
+    updated_on TIMESTAMP,
+    updated_by INTEGER,
+    deactivated CHAR(1) NOT NULL DEFAULT 'F',
+    nbr_suits INTEGER,
+    nbr_coats INTEGER,
+    nbr_jackets INTEGER,
+    nbr_shirts INTEGER,
+    nbr_pants INTEGER,
+    nbr_knitwear INTEGER,
+    nbr_misc INTEGER,
+    nbr_belts INTEGER,
+    nbr_socks INTEGER,
+    nbr_golfshirts INTEGER,
+    nbr_tshirts INTEGER,
+    nbr_shoes INTEGER,
+    nbr_cufflinks INTEGER,
+    nbr_ties INTEGER,
+    nbr_skirts INTEGER,
+    nbr_dresses INTEGER,
+    nbr_softtops INTEGER,
+    nbr_kneehighs INTEGER,
+    nbr_scarves INTEGER,
+    nbr_handbags INTEGER,
+    nbr_makeup INTEGER,
+    nbr_esteem_jewellery INTEGER,
+    nbr_boots INTEGER,
+    nbr_underwear INTEGER,
+    nbr_bra INTEGER,
+    nbr_camisole INTEGER,
+    nbr_stocking INTEGER
+);
+success!
+timestamp: 2014-02-13T14:06:39.906000
+CREATE TABLE event_types(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name CHAR(512),
+    color CHAR(512),
+    created_on TIMESTAMP,
+    created_by INTEGER,
+    updated_on TIMESTAMP,
+    updated_by INTEGER,
+    deactivated CHAR(1) NOT NULL DEFAULT 'F'
+);
+success!
+timestamp: 2014-02-13T14:06:39.932000
+CREATE TABLE events(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    type INTEGER NOT NULL DEFAULT NULL,
+    name CHAR(512) NOT NULL DEFAULT '',
+    slots INTEGER,
+    date DATE NOT NULL,
+    start_time CHAR(512) NOT NULL DEFAULT '09:00',
+    end_time CHAR(512) NOT NULL DEFAULT '09:15',
+    desc TEXT,
+    remaining_slots INTEGER,
+    is_full CHAR(1) NOT NULL DEFAULT 'F',
+    created_on TIMESTAMP,
+    created_by INTEGER,
+    updated_on TIMESTAMP,
+    updated_by INTEGER,
+    deactivated CHAR(1) NOT NULL DEFAULT 'F'
+);
+success!
+timestamp: 2014-02-13T14:06:39.963000
+CREATE TABLE registrations(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    event INTEGER REFERENCES events(id) ON DELETE CASCADE,
+    person INTEGER NOT NULL DEFAULT 1,
+    type CHAR(512) NOT NULL DEFAULT 'Client',
+    created_on TIMESTAMP,
+    created_by INTEGER,
+    updated_on TIMESTAMP,
+    updated_by INTEGER,
+    deactivated CHAR(1) NOT NULL DEFAULT 'F'
+);
+success!
+timestamp: 2015-06-25T12:15:26.416000
+ALTER TABLE organisations ADD is_job_placement_service CHAR(1);
+timestamp: 2015-06-25T12:15:26.448000
+ALTER TABLE organisations ADD is_work_income CHAR(1);
+timestamp: 2015-06-25T12:15:26.510000
+ALTER TABLE auth_user ADD ttw_paid CHAR(512);
+timestamp: 2015-06-25T12:15:26.744000
+ALTER TABLE auth_user ADD single_parent CHAR(512);
+timestamp: 2015-06-25T12:15:26.760000
+ALTER TABLE auth_user ADD pref_socialmedia CHAR(1);
+timestamp: 2015-06-25T12:15:26.806000
+ALTER TABLE auth_user ADD pref_lifeskills CHAR(1);
+timestamp: 2015-06-25T12:15:26.853000
+ALTER TABLE activities ADD pref_lifeskills CHAR(1);
+timestamp: 2015-06-25T12:15:26.869000
+ALTER TABLE activities ADD pref_socialmedia CHAR(1);
+timestamp: 2015-06-29T18:30:47.839000
+ALTER TABLE events ADD display_name CHAR(512);
+timestamp: 2015-07-15T15:18:08.417000
+ALTER TABLE organisations ADD city_addr CHAR(512);
+timestamp: 2015-07-15T15:18:08.606000
+ALTER TABLE auth_user ADD city_addr CHAR(512);

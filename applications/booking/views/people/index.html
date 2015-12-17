@@ -1,0 +1,15 @@
+{{extend "layout.html"}}
+
+{{person_type = person_type_by_entity(entity)}}
+
+<h2>Find {{=person_type}}</h2>
+
+{{include 'people/search.load'}}
+{{include 'people/list.load'}}
+
+
+{{if can('create', entity):}}
+<div id="new">
+    {{=button('Create ' + person_type, f='create')}}
+</div>
+{{pass}}

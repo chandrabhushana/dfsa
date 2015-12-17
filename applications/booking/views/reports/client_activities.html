@@ -1,0 +1,98 @@
+{{extend 'layout.html'}}
+
+{{report_name = 'All Client Activities'}}
+{{gender_field = True}}
+{{total_message = 'Total'}}
+{{total_val = total if request.args(0)==FITTING_REPORTS.NO_SHOWS else len(result)}}
+{{start_and_end = True}}
+{{start_not_end=False}}
+{{effective_date = False}}
+
+
+<div id="breadcrumbs">
+    {{=link(text='All Reports' , f='index')}} >
+    Report - {{=report_name}}
+</div>
+
+<div id="search">
+    <form name="search" method="post" enctype="multipart/form-data" action="">
+       
+        <table class="form-table">
+            <tbody>
+                {{if gender_field:}}
+                <tr>
+                    <td>Gender:</td>{{genders=['All','Female','Male']}}
+                    <td><select name="gender" id="gender">{{for gender in genders:}}
+                        {{if request.vars.gender==gender:}}
+                        <option selected="selected" value="{{=gender}}">{{=gender}}</option>
+                        {{elif len(request.args)>3:}}
+            <option selected="selected" value="{{=gnder}}">{{=gnder}}</option> 
+            {{else:}}
+                        <option value="{{=gender}}">{{=gender}}</option>
+                        {{pass}}
+                    {{pass}}</select></td>
+                </tr>
+                {{pass}}
+                
+                {{if start_and_end:}}
+                
+        {{if start_and_end and len(request.args)>2 :}}
+        <tr>
+                    <td>Start Date:</td> {{if st_date==None: st_date=''}}    
+            <td><input type="text" name="st_date" class="date" value={{=st_date}} id="st_date" size="15" /></td>
+                </tr>
+                <tr>                    
+                    <td>End Date:</td>                    
+                    <td><input type="text" name="en_date" class="date" value={{=en_date}} id="en_date" size="15" /></td>
+                </tr>
+        {{else:}}
+        <tr>
+                    <td>Start Date:</td>                    
+                    <td><input type="text" name="start_date" class="date" value="{{=sticky_val('start_date')}}" id="start_date" size="15" /></td>
+                </tr>
+                <tr>                    
+                    <td>End Date:</td>                    
+                    <td><input type="text" name="end_date" class="date"value="{{=sticky_val('end_date')}}" id="end_date"size="15" /></td>
+                </tr>
+        {{pass}}
+                <tr id="error" style=" display:none; color:red" hidden="hidden">
+                    <td colspan="100%">Start Date should not be greater than End Date</td>
+                </tr>
+        <tr id="volunteer_act_error" style=" display:none; color:red" hidden="hidden">
+                    <td colspan="100%">Start date and End date both are required</td>
+                </tr>
+        <tr id="volunteer" style=" display:none; color:red" hidden="hidden">
+                    <td colspan="100%"></td>
+                </tr>
+                <tr id="date_error" style=" display:none; color:red" hidden="hidden">
+                    <td colspan="100%">Please enter proper date</td>
+                </tr>
+                {{pass}}
+        {{if effective_date and len(request.args)>1:}}
+                <tr>
+                    <td>Effective Date:</td>
+                    <td><input type="text" name="e_date" class="date" value="{{=e_date}}" id="e_date" size="15" /></td>
+                </tr>
+        {{elif effective_date:}}
+                <tr>
+                    <td>Effective Date:</td>                    
+                    <td><input type="text" name="effective_date" class="date" value="{{=sticky_val('effective_date')}}" id="effective_date" size="15" /></td>
+                </tr>
+        {{pass}}
+
+                
+                <tr id="date_effect_error" style=" display:none; color:red" hidden="hidden">
+                    <td colspan="100%">Please enter proper date</td>
+                </tr>
+                
+                <tr class="searchrow">
+                    <!--<td><input type="submit" name="view" id="view" value="View" /></td> 
+                    <td><input type="submit" name="download" id="download" value="Generate Report" /></td> 
+                    <td><input type="submit" name="download" id="download" value="Generate Report" /></td>-->
+                    <td><input type="button" name="download" id="download" value="Generate Report" onclick = "client_activities_report()" /></td>
+                </tr>
+            </tbody>
+        </table>
+    </form>
+</div>
+<div id="task_response" style="font-style: bold;font-size: x-large;color: red;"></div>

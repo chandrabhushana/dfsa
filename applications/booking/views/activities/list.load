@@ -1,0 +1,29 @@
+{{link_function = 'update' if can('update', 'activities') else 'view'}}
+
+<div id="activities">
+    <span class="sh">Activities</span>
+    <table class="list-table tablesorter" id="list" summary="Activities">
+        <thead>
+            <tr>
+                <th scope="col">Activity Type</th>
+                <th scope="col">Date</th>
+                <th scope="col">No-Show</th>
+            </tr>
+        </thead>
+        <tbody>
+        {{if activities != None: }}
+            {{for activity in activities:}}
+            <tr class="clickable" onclick="go_to('{{=URL(f=link_function, c='activities', args=activity.id)}}')">
+                <td>{{=activity.type}}</a></td>
+                <td>{{=activity.date.strftime('%d-%m-%Y')}}</td>
+                <td>{{=bool2yn(activity.is_no_show)}}</td>
+            </tr>
+            {{pass}}
+        {{pass}} 
+        </tbody>
+    </table>
+</div>
+
+<div id="new_activity">
+    {{=button('Add Activity', c='activities', f='create', vars=dict(person=person.id), check_auth=True)}}
+</div>

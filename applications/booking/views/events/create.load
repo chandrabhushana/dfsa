@@ -1,0 +1,2 @@
+{{event_id=0}}
+{{include request.controller + '/form.load'}}

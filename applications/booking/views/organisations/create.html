@@ -1,0 +1,12 @@
+{{extend 'layout.html'}}
+
+{{if can('index', 'organisations'):}}
+<div id="breadcrumbs">
+    {{=link(text='Find Organisations', f='index')}} >
+    Create Organisation
+</div>
+{{pass}}
+
+<h2>Create Organisation</h2>
+
+{{include request.controller + '/form.load'}}

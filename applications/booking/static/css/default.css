@@ -1,0 +1,542 @@
+/*
+Design by Free CSS Templates
+http://www.freecsstemplates.org
+Released for free under a Creative Commons Attribution 2.5 License
+
+width calcs:
+total = 980
+content pad | sidebar left | sidebar | sidebar right | main pad | main | main pad | content pad
+5px         | 5px          | 185px   | 15px          | 10px     | 755    | 10px     | 5px
+
+where 980 is content div width to fit on 1024 screen with room for scroolbars, etc..
+*/
+body {
+    margin: 0;
+    padding: 0;
+    text-align: justify;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+}
+
+#wrapper {
+    margin:0;
+}
+
+h2, h3, h4, h5, h6 {
+    margin: 0;
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+}
+h2 {
+    letter-spacing: -1px;
+    font-size: 26px;
+    font-weight: normal;
+    color: #31576F;
+}
+h2 em {
+    font-weight: bold;
+    font-style: normal;
+}
+h3 {
+    height: 22px;
+    background: #0077A7 /*url(images/img3.gif) repeat-x left bottom*/;
+    padding: 5px 13px 3px 13px;
+    text-transform: lowercase;
+    font-size: 15px;
+    color: #FFFFFF;
+}
+
+p, ol, ul {
+    line-height: 180%;
+}
+
+ul {
+    margin-left: 0;
+    padding-left: 0;
+    list-style-position: inside;
+}
+
+a {
+    color: #6B6B6B;
+}
+a:hover {
+    text-decoration: none;
+}
+
+m, .m {
+    font-weight: bold;
+    color: #FF0000;
+}
+sm, .sm {
+    font-size:10px;
+}
+
+/*.image {
+    float: left;
+    margin: 0 20px 0 0;
+}*/
+
+.error {
+    color: red;
+}
+
+/* Header */
+
+#header {
+    margin: 0;
+    /*padding:5px 10px;*/
+    display:block;
+    height: 60px;
+    /*background: #FFFFFF url(images/img1_alt.png) repeat-x;*/
+    background: #0077A7;
+    color: #FFFFFF;
+}
+
+#header h1 {
+    margin: 0;
+    float: left;    
+    font-family: Impact, Charcoal, sans-serif;
+    /*letter-spacing: -1px;*/
+    padding: 15px 5px 0 30px; /*top, right, bot, left */
+    font-size: 33px;
+    font-weight: normal;
+}
+
+#header h2 {
+    float: left;
+    padding: 23px 0 0 10px; /*top, right, bot, left */
+    font-size: 25px;
+    font-weight: normal;
+    color: #FFFFFF;
+}
+
+/*#header h1 {
+    text-decoration:none;
+    border:0;
+    margin : 0;
+    padding : 0;
+    background: url(/otherApp/static/images/WFSLogo.png) no-repeat 0 0;
+}
+
+h1 {
+    display : block;
+    height : 113px;
+    width: 300px;
+    text-indent : -9999px; 
+}*/
+
+#event_types_legend {
+    clear: both;
+}
+#event_types_legend ul {
+    width: 100%;
+    float: left;
+    margin: 10px 0 0 0;
+    padding: 0;
+    list-style: none;
+}
+#event_types_legend li {
+    /*font-size: 12px;*/
+    line-height:160%;
+    float: left;
+    padding: 0 0.5em;
+    border:1px solid black;
+    border-left: none;
+    z-index: 2;
+}
+#event_types_legend li.title {
+    padding-left: 0;  
+    border: none;
+}
+#event_types_legend li.selected {
+    border:2px inset black;
+}
+#events_legend {
+    padding-top: 10px;
+    padding-bottom: 10px;   
+}
+
+#subheader {
+   clear: both;
+   background:black;
+}
+#subheader ul {
+    margin:0;
+    padding:0;
+    margin-left: 20px;
+    list-style: none none outside;
+}
+#subheader li {
+    display: inline;
+    margin:0;
+    padding:0;
+}
+#subheader a {
+    text-decoration:none;
+    color: white;
+}
+#subheader a:hover {
+    color: #b9c9fe;
+}
+
+#content {
+    width: 980px;
+    margin: 10px 5px;
+}
+
+#sidebar {
+    float: left;
+    margin-left: 5px;
+    margin-right: 15px;
+    width: 185px;
+}
+
+#sidebar ul {
+    padding-left: 0;
+    list-style: none none outside;
+}
+
+#sidebar li {
+    padding: 5px 0;
+    background: url(images/img6.gif) repeat-x;
+    text-align:left;
+}
+
+#sidebar li.first {
+    background: none;
+}
+
+#links {
+    padding: 0px 10px 10px 15px;
+}
+
+#main {
+    float: left;
+    padding: 10px 10px 10px 10px;
+    width: 755px; 
+}
+
+.gradient {
+    border-top: 1px solid #CBE1EF;
+    background: #FFFFFF url(images/img4.gif) repeat-x;
+}
+
+/* Footer */
+
+
+#footer {
+    height: 1px;
+    clear: both;
+    margin: 0 auto;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-top: 1px solid lightGray;
+    
+    /*background: url(images/img7_alt.png) repeat-x;*/
+}
+
+#footer p {
+    margin: 0;
+    text-align: center;
+    /*text-transform: lowercase;*/
+}
+
+/*Table and Form*/
+/*table {
+  width: 100%;
+}
+TODO Fix the search form table 
+*/
+
+/*form {
+    margin-top: 5px;
+}
+.form-input {
+    font-weight: bold;
+}
+
+th.small1 {
+  width: 25%;
+}
+*/
+
+/*th.view-button {
+  width: 100px;
+}*/
+
+/*th.form-input-2col {
+    width: 25%;
+}*/
+
+/* Box Table */
+table.form-table th.form-input-2col {
+    width: 200px;
+}
+table.form-table th.form-input-3col {
+    width: 100px;
+}
+table.form-table {
+    border-collapse: collapse;
+    border-style: hidden;    
+}
+
+table.form-table td {
+    border-left: 15px solid transparent;
+    border-right: 15px solid transparent;
+    border-bottom: 5px solid transparent;
+}
+table.form-table .shform > td, .submitrow td, .searchrow td {
+    border-top: 0;
+    padding-top: 10px;
+}
+/*table.form-table .shform + tr > td {
+    padding-top: 15px;
+}*/
+
+
+table.list-table
+{
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 20px;
+    width: 90%;
+    text-align: left;
+    border-collapse: collapse;
+}
+table.list-table th
+{
+    font-size: 15px;
+    font-weight: normal;
+    padding: 8px;
+    background: #b9c9fe;
+    border-top: 4px solid #aabcfe;
+    border-bottom: 1px solid #fff;
+    color: #039;
+    text-align: left;
+}
+table.list-table td
+{
+    padding: 8px;
+    background: #e8edff; 
+    border-bottom: 1px solid #fff;
+    color: #669;
+    border-top: 1px solid transparent;
+}
+.clickable {
+    cursor: pointer;
+}
+.clickable:hover td {
+    background: #d0dafd;
+    color: #339;
+}
+
+
+/*Search*/
+#search
+{
+    border-style: dotted;
+    border-width: 1px;
+    border-color: #8F8F8F;
+    padding: 10px;
+}
+
+/* General Form Details */
+
+form, textarea {
+    text-align: left;
+}
+label {
+    vertical-align: top;
+}
+input[type="text"], input[type="password"], textarea {
+    width: 160px;
+    font-family: Arial, Helvetica, sans-serif; /*dont inherit Trebuchet since textarea will look different */
+    font-weight: normal;
+    font-size: 1.0em;
+}
+select {
+    font-size: 1.0em;
+    font-family: Arial, Helvetica, sans-serif;
+}
+textarea {
+    height: 50px;
+    resize: none;
+}
+/*Chrome hack*/
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+textarea { padding: 1px; }
+}
+
+.button, input[type="submit"], input[type="reset"] {
+    font-family: Arial, Helvetica, sans-serif; /*dont inherit Trebuchet since submit buttons will look weird */
+    padding: 3px 8px ;
+    margin: 0 4px 0px 2px;
+    /*display: inline;*/
+    text-decoration: none;
+    text-transform: none;
+    background: #777;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: normal;
+    text-align: center;
+    white-space: nowrap;
+}
+/* Fixing a buttons to look like input buttons*/
+a.button {
+    padding: 3.1px 8px ;
+}
+.button:hover, input[type="submit"]:hover {
+    background-position: 0 -48px;
+}
+.button:active, input[type="submit"]:active {
+    background-position: 0 top;
+    position: relative;
+    top: 1px;
+    /*padding: 6px 10px 4px;*/
+}
+
+#submit_row { vertical-align: middle; }
+
+/* Info Display */
+.infodisplay {
+    margin: 0;
+    text-align: left;
+    border-style: dashed;
+    border-width: 1px;
+    border-color: #8F8F8F;
+    padding: 10px;
+    padding-bottom: 5px;
+}
+.infodisplay > table {
+    border-spacing: 10px;
+}
+#infodisplay_buttons {
+    margin-top: 25px;
+    margin-left: 15px;
+    margin-bottom: 15px;
+}
+
+/*Subheadings*/
+.sh {
+    /*letter-spacing: -1px;*/
+    font-size: 20px;
+    font-weight: normal;
+    color: #31576F;
+    margin-left:10px;
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+}
+.shform {
+    /*letter-spacing: -1px;*/
+    font-size: 18px;
+    font-weight: normal;
+    color: #31576F;
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+}
+
+#breadcrumbs {
+    margin-bottom: 15px;    
+}
+
+
+/** Events **/
+#events { padding-top: 10px; }
+/*#current_event_content { height: 275px; }*/
+#new_event_content, .update_event_div, .view_event_div { float: left; width: 300px; }
+.view_event_div { float: left; width: 325px; }
+#single_event { padding-right:0}
+#reg_in_event { float: left; margin-left: 10px; width: 375px; text-align:left; margin-right: 0}
+#change_password { margin-top: 20px; margin-left: 3px; }
+#calendar_area, #single_event_header { margin-bottom: 15px; }
+#person_events { margin-top: 25px; }
+#activities { margin-top: 25px; }
+#current_event_content td { padding-bottom: 0.3em;  }
+#current_event_content table { border-spacing: 0; }
+#event_event_types a.button { padding: 4px 8px; }
+#event_event_types > div, #event_event_types a { float:left; margin-right: 10px; }
+#event_event_types > div { margin-top: 1px; }
+#event_type_form { width: 350px; }
+#event_types_update_btn { float: left; padding-top: 10px; margin-left: 10px; }
+.register-button { width: 75px; }
+input[type="submit"].register-button {margin: 3px}
+#results {margin-top: 15px;}
+
+
+/* tables */
+/*
+table.tablesorter {
+    font-family:arial;
+    background-color: #CDCDCD;
+    margin:10px 0pt 15px;
+    font-size: 8pt;
+    width: 100%;
+    text-align: left;
+}
+table.tablesorter thead tr th, table.tablesorter tfoot tr th {
+    background-color: #e6EEEE;
+    border: 1px solid #FFF;
+    font-size: 8pt;
+    padding: 4px;
+}
+*/
+table.tablesorter thead tr .header {
+    background-image: url(images/bg.gif);
+    background-repeat: no-repeat;
+    background-position: center right;
+    cursor: pointer;
+    padding-right: 22px;
+}
+/*
+table.tablesorter tbody td {
+    color: #3D3D3D;
+    padding: 4px;
+    background-color: #FFF;
+    vertical-align: top;
+}
+table.tablesorter tbody tr.odd td {
+    background-color:#F0F0F6;
+}
+*/
+table.tablesorter thead tr .headerSortUp {
+    background-image: url(images/asc.gif);
+}
+table.tablesorter thead tr .headerSortDown {
+    background-image: url(images/desc.gif);
+}
+table.tablesorter thead tr .headerSortDown, table.tablesorter thead tr .headerSortUp {
+background-color: #8dbdd8;
+}
+
+div.flash {
+    font-weight: bold;
+    display: none;
+    position: fixed;    
+    padding: 3px;
+    top: 86px;
+    left: 200px;
+    min-width: 280px;
+    opacity: 0.85;
+    margin: 0px 0px 10px 10px;    
+    color: #fff;    
+    vertical-align: middle;
+    cursor: pointer;
+    background-color: white;
+    border: 1px solid grey;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    z-index: 2;
+}
+div.success {
+    color: green;
+}
+div.notice {
+    color: blue;
+}
+div.error {
+    color: red;
+}
+#auth_user_referral_contact_email{
+	width:300px !important;
+}
+#auth_user_email{
+width:300px !important;
+}

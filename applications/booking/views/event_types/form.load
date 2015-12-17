@@ -1,0 +1,85 @@
+<div id="event_type_form">
+    {{=form.custom.begin}}
+    
+    
+                    {{if request.function == "update":}}
+                    {{if form.element('#event_types_name')['value']== "Dressings":}}
+                    {{ form.element('#event_types_name')['_readonly'] = True}}
+                    {{pass}}
+                    {{pass}}
+                
+                    {{if request.function == "update":}}
+                    {{if form.element('#event_types_name')['value']== "Resource Centre":}}
+                    {{ form.element('#event_types_name')['_readonly'] = True}}
+                    {{pass}}
+                    {{pass}}
+                    
+		    {{if request.function == "update":}}
+                    {{if form.element('#event_types_name')['value']== "PWG":}}
+                    {{ form.element('#event_types_name')['_readonly'] = True}}
+                    {{pass}}
+                    {{pass}}
+
+		    {{if request.function == "update":}}
+                    {{if form.element('#event_types_name')['value']== "Volunteer Roster":}}
+                    {{ form.element('#event_types_name')['_readonly'] = True}}
+                    {{pass}}
+                    {{pass}}
+    
+        <table class="form-table">
+                
+            <tbody>
+                <tr>
+                    <td><span class="m">*</span> Name</td>
+                    <td>{{=form.custom.widget.name}}</td>
+                    <td><span class="m">*</span> Color</td>
+                    <td>{{=form.custom.widget.color}}</td>
+                </tr>
+                
+                <tr>    
+                    {{if request.function == "update":}}
+                    {{if form.element('#event_types_name')['value']== "Dressings":}}
+                    {{ form.element('#event_types_name')['_readonly'] = True}}
+                    <td><td><font color="Red">Rename the default Event Type is not permitted</font></td></td>
+                    {{pass}}
+                    {{pass}}
+
+			    {{if request.function == "update":}}
+                    {{if form.element('#event_types_name')['value']== "Resource Centre":}}
+                    <td><td><font color="Red"> Rename the default Event Type is not permitted </font></td></td>
+                    {{ form.element('#event_types_name')['_readonly'] = True}}
+                    {{pass}}
+                    {{pass}}
+                    
+		    {{if request.function == "update":}}
+                    {{if form.element('#event_types_name')['value']== "PWG":}}
+                    {{ form.element('#event_types_name')['_readonly'] = True}}
+                    <td><td><font color="Red">Rename the default Event Type is not permitted</font></td></td>
+                    {{pass}}
+                    {{pass}}
+
+		    {{if request.function == "update":}}
+                    {{if form.element('#event_types_name')['value']== "Volunteer Roster":}}
+                    {{ form.element('#event_types_name')['_readonly'] = True}}
+                    <td><td><font color="Red">Rename the default Event Type is not permitted</font></td></td>
+                    {{pass}}
+                    {{pass}}
+		                     
+                  </tr>                 
+                    <td><td>{{=form.custom.submit}}</td></td>
+                    <td>
+                        <input style="margin-left:0px" id="cancel" class="submit" type="reset" onclick="window.history.back()" value="Cancel">
+                    
+                    </td>
+                    
+            
+            </tbody>
+        </table>
+    {{=form.custom.end}}
+</div>
+
+<script language="javascript">
+    jQuery('#event_type_form').ready(function() {
+        $('#event_types_color').colorPicker();
+    });
+</script>

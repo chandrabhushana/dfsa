@@ -1,0 +1,13 @@
+{{extend 'layout.html'}}
+
+<h2>Find Organisation</h2>
+
+
+{{include 'organisations/search.load'}}
+{{include 'organisations/list.load'}}
+
+{{if can('create', 'organisations'):}}
+<div id="new_organisation">
+    {{=button('Create Organisation', f='create')}}
+</div>
+{{pass}}

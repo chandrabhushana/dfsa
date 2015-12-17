@@ -1,0 +1,222 @@
+
+<div id="breadcrumbs">
+    {{=link(text='All Reports' , f='index')}} >
+    Report - {{=report_name}}
+</div>
+
+<div id="search">
+    <form name="search" method="post" enctype="multipart/form-data" action="">
+        <table class="form-table">
+            <tbody>
+                {{if gender_field:}}
+                <tr>
+                    <td>Gender:</td>{{genders=['All','Female','Male']}}
+                    <td><select name="gender">{{for gender in genders:}}
+                        {{if request.vars.gender==gender:}}
+                        <option selected="selected" value="{{=gender}}">{{=gender}}</option>
+                        {{elif len(request.args)>3:}}
+			<option selected="selected" value="{{=gnder}}">{{=gnder}}</option> 
+			{{else:}}
+                        <option value="{{=gender}}">{{=gender}}</option>
+                        {{pass}}
+                    {{pass}}</select></td>
+                </tr>
+                {{pass}}
+                
+                {{if start_and_end:}}
+                
+		{{if start_and_end and len(request.args)>2 :}}
+		<tr>
+                    <td>Start Date:</td> {{if st_date==None: st_date=''}}    
+		    <td><input type="text" name="st_date" class="date" value={{=st_date}} id="st_date" size="15" /></td>
+                </tr>
+                <tr>                    
+                    <td>End Date:</td>                    
+                    <td><input type="text" name="en_date" class="date" value={{=en_date}} id="en_date" size="15" /></td>
+                </tr>
+		{{else:}}
+		<tr>
+                    <td>Start Date:</td>                    
+                    <td><input type="text" name="start_date" class="date" value="{{=sticky_val('start_date')}}" id="start_date" size="15" /></td>
+                </tr>
+                <tr>                    
+                    <td>End Date:</td>                    
+                    <td><input type="text" name="end_date" class="date"value="{{=sticky_val('end_date')}}" id="end_date"size="15" /></td>
+                </tr>
+		{{pass}}
+                <tr id="error" style=" display:none; color:red" hidden="hidden">
+                    <td colspan="100%">Start Date should not be greater than End Date</td>
+                </tr>
+		<tr id="volunteer_act_error" style=" display:none; color:red" hidden="hidden">
+                    <td colspan="100%">Start date and End date both are required</td>
+                </tr>
+		<tr id="volunteer" style=" display:none; color:red" hidden="hidden">
+                    <td colspan="100%"></td>
+                </tr>
+                <tr id="date_error" style=" display:none; color:red" hidden="hidden">
+                    <td colspan="100%">Please enter proper date</td>
+                </tr>
+                {{pass}}
+		{{if effective_date and len(request.args)>1:}}
+                <tr>
+                    <td>Effective Date:</td>
+                    <td><input type="text" name="e_date" class="date" value="{{=e_date}}" id="e_date" size="15" /></td>
+                </tr>
+		{{elif effective_date:}}
+                <tr>
+                    <td>Effective Date:</td>                    
+                    <td><input type="text" name="effective_date" class="date" value="{{=sticky_val('effective_date')}}" id="effective_date" size="15" /></td>
+                </tr>
+		{{pass}}
+
+                
+                <tr id="date_effect_error" style=" display:none; color:red" hidden="hidden">
+                    <td colspan="100%">Please enter proper date</td>
+                </tr>
+                
+                <tr class="searchrow">
+                    <td><input type="submit" name="view" id="view" value="View" /></td>
+                    <td><input type="submit" name="download" id="download" value="Download CSV" /></td>
+                </tr>
+            </tbody>
+        </table>
+    </form>
+</div>
+
+
+
+{{if len(result)>0:}}
+<div id="results">
+    
+    <h2>{{=total_message}}: {{=total_val}}</h2>
+    
+    <table class="list-table tablesorter" id="list" summary="List">
+        <thead>
+            {{for col in colnames:}}
+            <th>{{=col}}</th>
+            {{pass}}
+        </thead>
+        <tbody>
+            {{for record in result:}}
+            <tr>
+                {{for col in colnames:}}
+                    {{if '.' in col:}}
+                        {{(t, f) = col.split('.')}}
+                        <td>{{=record.get(t).get(f)}}</td>
+                    {{else:}}
+                        <td>{{=record.get(col)}}</td>
+                    {{pass}}
+                {{pass}}
+            </tr>
+            {{pass}}
+	    
+	{{if request.function=='client_fittings' and len(request.args)==3:}}
+		{{args=request.args[1]}}
+		{{if page:}}
+		<a href="{{=URL(args=[page-1,args])}}">previous</a>&nbsp;
+		{{pass}}
+
+		{{if len(result)>items_per_page:}}
+		<a href="{{=URL(args=[page+1,args])}}">next</a>
+		{{pass}}
+
+	{{else:}}
+		{{if page:}}
+			{{if effective_date==True and e_date != None:}}		
+				<a href="{{=URL(args=[page-1,e_date])}}">previous</a>&nbsp;
+			{{elif effective_date==True:}}
+				<a href="{{=URL(args=[page-1])}}">previous</a>&nbsp;
+			{{elif start_and_end==True:}}
+				{{if st_date!=None and en_date!=None:}} 
+					{{if request.function=='client_fittings':}}
+					{{args=request.args[1]}}
+					{{gnder = gnder if gnder!=None else None}}
+					<a href="{{=URL(args=[page-1,args,st_date,en_date,gnder])}}">previous</a>&nbsp;
+					{{else:}}
+					<a href="{{=URL(args=[page-1,st_date,en_date])}}">previous</a>&nbsp;
+					{{pass}}
+				{{elif st_date!=None and en_date==None:}} 
+					{{if request.function=='client_fittings':}}
+					{{args=request.args[1]}}
+					<a href="{{=URL(args=[page-1,args,st_date])}}">previous</a>&nbsp;
+					{{else:}}
+					<a href="{{=URL(args=[page-1,st_date])}}">previous</a>&nbsp;
+					{{pass}}
+				{{elif st_date==None and en_date!=None:}} 
+					{{if request.function=='client_fittings':}}
+					{{args=request.args[1]}}
+					<a href="{{=URL(args=[page-1,args,en_date])}}">previous</a>&nbsp;
+					{{else:}}
+					<a href="{{=URL(args=[page-1,en_date])}}">previous</a>&nbsp;
+					{{pass}}
+				{{else:}}
+					{{if request.function=='client_fittings':}}
+					{{args=request.args[1]}}
+					<a href="{{=URL(args=[page-1,args])}}">previous</a>&nbsp;
+					{{else:}}
+					<a href="{{=URL(args=[page-1])}}">previous</a>&nbsp;
+					{{pass}}
+				{{pass}}
+			{{pass}}
+		{{pass}}
+		{{if len(result)>items_per_page:}}
+			{{if e_date != None:}}
+				<a href="{{=URL(args=[page+1,e_date])}}">next</a>
+			{{elif effective_date==True:}}
+				<a href="{{=URL(args=[page+1])}}">next</a>
+			{{elif start_and_end==True:}}
+				{{if st_date!=None and en_date!=None:}}
+					{{if request.function=='client_fittings':}}
+					{{args=request.args[1]}}
+					{{gnder = gnder if gnder else None}}
+					<a href="{{=URL(args=[page+1,args,st_date,en_date,gnder])}}">next</a>
+					{{else:}}
+					<a href="{{=URL(args=[page+1,st_date,en_date])}}">next</a>
+					{{pass}}
+				{{elif st_date!=None and en_date==None:}}
+					{{if request.function=='client_fittings':}}
+					{{args=request.args[1]}}
+					<a href="{{=URL(args=[page+1,args,st_date])}}">next</a>
+					{{else:}}
+					<a href="{{=URL(args=[page+1,st_date])}}">next</a>
+					{{pass}}
+				{{elif st_date==None and en_date!=None:}}
+					{{if request.function=='client_fittings':}}
+					{{args=request.args[1]}}
+					<a href="{{=URL(args=[page+1,args,en_date])}}">next</a>
+					{{else:}}
+					<a href="{{=URL(args=[page+1,en_date])}}">next</a>
+					{{pass}}
+				{{else:}}
+					{{if request.function=='client_fittings':}}
+					{{args=request.args[1]}}
+					<a href="{{=URL(args=[page+1,args])}}">next</a>
+					{{else:}}
+					<a href="{{=URL(args=[page+1])}}">next</a>
+					{{pass}}
+				{{pass}}
+				
+			{{pass}}
+		{{pass}}
+	{{pass}}
+        </tbody>
+    </table>
+</div>
+{{pass}}
+
+
+{{if start_and_end:}}
+<script type="text/javascript">
+    $(document).ready(function(){
+        addDateCompareHandler($('form'));
+    });
+</script>
+{{elif effective_date:}}
+<script type="text/javascript">
+    $(document).ready(function(){
+        efDateCompareHandler($('form'));
+    });
+</script>
+{{else:}}
+
+{{pass}}

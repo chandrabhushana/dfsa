@@ -1,0 +1,152 @@
+{{extend 'layout.html'}}
+
+<h2>Reports</h2>
+<div>
+     <table class="list-table" summary="List">
+        <thead>
+            <tr>
+                <th scope="col">Clients</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><li><a href="{{=URL(c='reports', f='total_clients', args=None)}}">All Clients</a></li></td>
+            </tr>
+            <tr>
+                <td><li><a href="{{=URL(c='reports', f='client_activities', args=None)}}">All Clients Activities</a></li></td>
+            </tr>
+       </tbody>
+     </table>
+</div>
+<div>
+     <table class="list-table" summary="List">
+        <thead>
+            <tr>
+                <th scope="col">Client Dressing</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><li><a href="{{=URL(c='reports', f='client_fittings', args=[0,FITTING_REPORTS.ALL])}}">All Dressing</a></li></td>
+            </tr>
+            <tr>
+                <td><li><a href="{{=URL(c='reports', f='client_fittings', args=[0,FITTING_REPORTS.FIRST_VISITS])}}">First Visits</a></li></td>
+            </tr>
+            <tr>
+                <td><li><a href="{{=URL(c='reports', f='client_fittings', args=[0,FITTING_REPORTS.RETURN_VISITS])}}">Return Visits</a></li></td>
+            </tr>
+            <tr>
+                <td><li><a href="{{=URL(c='reports', f='client_fittings', args=[0,FITTING_REPORTS.NO_SHOWS])}}">No Shows</a></li></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<div>
+    <table class="list-table" summary="List">
+        <thead>
+            <tr>
+                <th scope="col">Employees</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><li><a href="{{=URL(c='reports', f='total_employees', args=None)}}">All Employees</a></li></td>
+            </tr>
+            <tr>
+                <td><li><a href="{{=URL(c='reports', f='employee_activities', args=None)}}">All Employees Activities</a></li></td>
+            </tr>
+            <tr>
+                <td><li><a href="{{=URL(c='reports', f='active_employees', args=None)}}">Active Employees</a></li></td>
+            </tr>
+            <tr>
+                <td><li><a href="{{=URL(c='reports', f='employee_hours', args=None)}}">Employees Volunteer Hours</a></li></td>
+            </tr>
+         </tbody>
+    </table>
+</div>
+
+<div>
+    <table class="list-table" summary="List">
+        <thead>
+            <tr>
+                <th scope="col">Volunteers</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><li><a href="{{=URL(c='reports', f='all_volunteers', args=None)}}">All Volunteers</a></li></td>
+            </tr>
+            <tr>
+                <td><li><a href="{{=URL(c='reports', f='all_volunteers_activities', args=None)}}">All Volunteers Activities</a></li></td>
+            </tr>
+            <tr>
+                <td><li><a href="{{=URL(c='reports', f='active_volunteers', args=None)}}">Active Volunteers</a></li></td>
+            </tr>
+            <tr>
+                <td><li><a href="{{=URL(c='reports', f='volunteer_hours', args=None)}}">Volunteer Hours</a></li></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<div>
+    <table class="list-table" summary="List">
+        <thead>
+            <tr>
+                <th scope="col">Agency User</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><li><a href="{{=URL(c='reports', f='all_agencies', args=None)}}">All Agency Users</a></li></td>
+            </tr>
+         </tbody>
+    </table>
+</div>
+
+<div>
+    <table class="list-table" summary="List">
+        <thead>
+            <tr>
+                <th scope="col">Organisations</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><li><a href="{{=URL(c='reports', f='organisations_all', args=None)}}">All Organisations</a></li></td>
+            </tr>
+            
+         </tbody>
+    </table>
+</div>
+
+<div>
+    <table class="list-table" summary="List">
+        <thead>
+            <tr>
+                <th scope="col">Stock Data</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><li><a href="{{=URL(c='reports', f='items_distributed', args=None)}}">Items Distributed</a></li></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<div>
+    <table class="list-table" summary="List">
+        <thead>
+            <tr>
+                <th scope="col">Activities</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><li><a href="{{=URL(c='reports', f='all_activities', args=None)}}">All Activities</a></li></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
